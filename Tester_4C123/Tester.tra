@@ -1,0 +1,24 @@
+*** Creating Trace Output File 'Tester.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"adcswtrigger.o"'
+### List of Objects: adding '"pll.o"'
+### List of Objects: adding '"tester.o"'
+### List of Objects: adding '"timer0.o"'
+### List of Objects: adding '"uart2.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4.fp "startup.o" "adcswtrigger.o" "pll.o" "tester.o" "timer0.o" "uart2.o" 
+--library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\Tester.map" -o Tester.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'Tester.axf'
+### ADS-LD Command File: 'Tester.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'Tester.lnp', Handle=0x0000036C
+### Writing '.lnp' file
+### ADS-LD Command file 'Tester.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

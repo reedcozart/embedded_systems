@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Dropbox\ArmBook\LaunchPad\LaunchPadware\DMATimerPortWrite_4C123\DMATimer.uvproj
+Project File Date:  08/09/2014
+
+<h2>Output:</h2>
+Build target 'DMATimer'
+compiling DMATimer.c...
+compiling DMAtestmain.c...
+linking...
+Program Size: Code=2660 RO-data=64 RW-data=28 ZI-data=7844  
+".\DMATimer.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\DMATimerPortWrite_4C123\\DMATimer.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'DMATimer'
+compiling DMAtestmain.c...
+linking...
+Program Size: Code=2660 RO-data=64 RW-data=28 ZI-data=7844  
+".\DMATimer.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\DMATimerPortWrite_4C123\\DMATimer.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'DMATimer'
+assembling startup.s...
+compiling DMATimer.c...
+compiling DMAtestmain.c...
+compiling PLL.c...
+linking...
+Program Size: Code=2668 RO-data=64 RW-data=28 ZI-data=7844  
+".\DMATimer.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\DMATimerPortWrite_4C123\\DMATimer.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

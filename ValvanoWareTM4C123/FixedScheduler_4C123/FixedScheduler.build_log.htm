@@ -1,0 +1,40 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Dropbox\ArmBook\LaunchPad\ValvanoWaveTM4C123\FixedScheduler_4C123\FixedScheduler.uvproj
+Project File Date:  08/10/2014
+
+<h2>Output:</h2>
+Build target 'FixedScheduler'
+compiling FixedScheduler.c...
+FixedScheduler.c(110): warning:  #550-D: variable "Result" was set but never used
+  void DAS(void){ uint8_t raw,Result;   
+FixedScheduler.c(152): warning:  #1296-D: extended constant initialiser used
+    { &sys[0].InitialReg[0],{ 0}, { 0},(uint32_t) FSM, 0x01000000},
+FixedScheduler.c(153): warning:  #1296-D: extended constant initialiser used
+    { &sys[1].InitialReg[0],{ 0}, { 0},(uint32_t) PID, 0x01000000},
+FixedScheduler.c(154): warning:  #1296-D: extended constant initialiser used
+    { &sys[2].InitialReg[0],{ 0}, { 0},(uint32_t) DAS, 0x01000000},
+FixedScheduler.c(155): warning:  #1296-D: extended constant initialiser used
+    { &sys[3].InitialReg[0],{ 0}, { 0},(uint32_t) PAN, 0x01000000}
+FixedScheduler.c: 5 warnings, 0 errors
+assembling osasm.s...
+linking...
+Program Size: Code=1724 RO-data=152 RW-data=1876 ZI-data=1124  
+".\FixedScheduler.axf" - 0 Error(s), 5 Warning(s).
+Clean started: Project: 'FixedScheduler'
+   deleting intermediate output files for target 'FixedScheduler'
+</pre>
+</body>
+</html>
+duler.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Connection failed!, error code=&d
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "C:\\Dropbox\\ArmBook\\LaunchPad\\ValvanoWaveTM4C123\\FixedScheduler_4C123\\FixedScheduler.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

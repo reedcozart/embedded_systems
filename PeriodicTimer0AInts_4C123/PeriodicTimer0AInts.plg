@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Dropbox\ArmBook\LaunchPad\LaunchPadware\PeriodicTimer0AInts_4C123\PeriodicTimer0AInts.uvproj
+Project File Date:  08/11/2014
+
+<h2>Output:</h2>
+Build target 'PeriodicTimer0AInts'
+assembling startup.s...
+compiling PeriodicTimer0AInts.c...
+compiling Timer0A.c...
+compiling PLL.c...
+linking...
+Program Size: Code=1416 RO-data=64 RW-data=8 ZI-data=1120  
+".\PeriodicTimer0AInts.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\PeriodicTimer0AInts_4C123\\PeriodicTimer0AInts.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'PeriodicTimer0AInts'
+compiling PeriodicTimer0AInts.c...
+linking...
+Program Size: Code=1416 RO-data=64 RW-data=8 ZI-data=1120  
+".\PeriodicTimer0AInts.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\PeriodicTimer0AInts_4C123\\PeriodicTimer0AInts.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'PeriodicTimer0AInts'
+compiling Timer0A.c...
+linking...
+Program Size: Code=1416 RO-data=64 RW-data=8 ZI-data=1120  
+".\PeriodicTimer0AInts.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\PeriodicTimer0AInts_4C123\\PeriodicTimer0AInts.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Clean started: Project: 'PeriodicTimer0AInts'
+   deleting intermediate output files for target 'PeriodicTimer0AInts'

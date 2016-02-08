@@ -1,0 +1,18 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Dropbox\ArmBook\LaunchPad\LaunchPadware\PointerTrafficLight_4F120asm\PointerTrafficLight.uvproj
+Project File Date:  05/19/2013
+
+<h2>Output:</h2>
+Build target 'PointerTrafficLight'
+assembling Startup.s...
+assembling SysTick.s...
+SysTick.s(68): warning: A1876W: Use of '|' as a synonym for the :OR: operator is deprecated.
+assembling PLL.s...
+assembling PointerTrafficLight.s...
+linking...
+Program Size: Code=1136 RO-data=0 RW-data=0 ZI-data=1024  
+"PointerTrafficLight.axf" - 0 Error(s), 1 Warning(s).

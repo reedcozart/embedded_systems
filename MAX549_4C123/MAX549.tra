@@ -1,0 +1,22 @@
+*** Creating Trace Output File 'MAX549.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"systick.o"'
+### List of Objects: adding '"max549testmain.o"'
+### List of Objects: adding '"max549.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4.fp "startup.o" "systick.o" "max549testmain.o" "max549.o" 
+--library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\MAX549.map" -o MAX549.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'MAX549.axf'
+### ADS-LD Command File: 'MAX549.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'MAX549.lnp', Handle=0x0000058C
+### Writing '.lnp' file
+### ADS-LD Command file 'MAX549.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

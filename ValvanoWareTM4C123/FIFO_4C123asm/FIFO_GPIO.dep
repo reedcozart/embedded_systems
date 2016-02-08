@@ -1,0 +1,3 @@
+Dependencies for Project 'FIFO', Target 'GPIO': (DO NOT MODIFY !)
+F (.\Startup.s)(0x506A5619)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -I D:\Keil\ARM\RV31\Inc -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\Luminary --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\Testmain.s)(0x5189C260)()

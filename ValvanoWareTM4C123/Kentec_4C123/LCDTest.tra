@@ -1,0 +1,24 @@
+*** Creating Trace Output File 'LCDTest.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"pll.o"'
+### List of Objects: adding '"ssd2119.o"'
+### List of Objects: adding '"random.o"'
+### List of Objects: adding '"lcdtestmain.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4.fp "startup.o" "pll.o" "ssd2119.o" "random.o" "lcdtestmain.o" 
+--library_type=microlib --strict --scatter "LCDTest.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\LCDTest.map" -o LCDTest.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'LCDTest.axf'
+### ADS-LD Command File: 'LCDTest.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'LCDTest.lnp', Handle=0x000009C8
+### Writing '.lnp' file
+### ADS-LD Command file 'LCDTest.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

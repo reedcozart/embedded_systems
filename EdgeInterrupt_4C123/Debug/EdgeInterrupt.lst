@@ -1,0 +1,820 @@
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* TI ARM C/C++ Codegen                                             PC v5.2.4 *
+       3                    ;* Date/Time created: Sat Sep 12 07:55:34 2015                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --arm_vmrs_si_workaround=off --code_state=16 --diag_wrap=off --disab
+       6 00000000                   .thumb
+       7                    
+       8                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+       9                            .dwattr $C$DW$CU, DW_AT_name("../EdgeInterrupt.c")
+      10                            .dwattr $C$DW$CU, DW_AT_producer("TI TI ARM C/C++ Codegen PC v5.2.4 Copyright (c) 1996-2015 Te
+      11                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      12                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Dropbox\ArmBook\LaunchPad\ValvanoWareTM4C123\EdgeInterrup
+      13                    
+      14                    $C$DW$1 .dwtag  DW_TAG_subprogram, DW_AT_name("EnableInterrupts")
+      15                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("EnableInterrupts")
+      16                            .dwattr $C$DW$1, DW_AT_declaration
+      17                            .dwattr $C$DW$1, DW_AT_external
+      18                            .dwattr $C$DW$1, DW_AT_decl_file("../EdgeInterrupt.c")
+      19                            .dwattr $C$DW$1, DW_AT_decl_line(0x26)
+      20                            .dwattr $C$DW$1, DW_AT_decl_column(0x06)
+      21                    
+      22                    $C$DW$2 .dwtag  DW_TAG_subprogram, DW_AT_name("WaitForInterrupt")
+      23                            .dwattr $C$DW$2, DW_AT_TI_symbol_name("WaitForInterrupt")
+      24                            .dwattr $C$DW$2, DW_AT_declaration
+      25                            .dwattr $C$DW$2, DW_AT_external
+      26                            .dwattr $C$DW$2, DW_AT_decl_file("../EdgeInterrupt.c")
+      27                            .dwattr $C$DW$2, DW_AT_decl_line(0x29)
+      28                            .dwattr $C$DW$2, DW_AT_decl_column(0x06)
+      29                            .global FallingEdges
+      30 00000000                   .data
+      31                            .align  4
+      32                            .elfsym FallingEdges,SYM_SIZE(4)
+      33 00000000           FallingEdges:
+      34 00000000 00000000          .bits   0,32                    ; FallingEdges @ 0
+      35                    
+      36                    $C$DW$3 .dwtag  DW_TAG_variable, DW_AT_name("FallingEdges")
+      37                            .dwattr $C$DW$3, DW_AT_TI_symbol_name("FallingEdges")
+      38                            .dwattr $C$DW$3, DW_AT_location[DW_OP_addr FallingEdges]
+      39                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$37)
+      40                            .dwattr $C$DW$3, DW_AT_external
+      41                            .dwattr $C$DW$3, DW_AT_decl_file("../EdgeInterrupt.c")
+      42                            .dwattr $C$DW$3, DW_AT_decl_line(0x2d)
+      43                            .dwattr $C$DW$3, DW_AT_decl_column(0x13)
+      44                    ;       C:\ti\ccsv6\tools\compiler\ti-cgt-arm_5.2.4\bin\armacpia.exe -@C:\\Users\\VALVAN~1\\AppData\\L
+      45 00000000                   .sect   ".text"
+      46                            .clink
+      47                            .thumbfunc EdgeCounter_Init
+      48 00000000                   .thumb
+      49                            .global EdgeCounter_Init
+      50                    
+      51                    $C$DW$4 .dwtag  DW_TAG_subprogram, DW_AT_name("EdgeCounter_Init")
+      52                            .dwattr $C$DW$4, DW_AT_low_pc(EdgeCounter_Init)
+      53                            .dwattr $C$DW$4, DW_AT_high_pc(0x00)
+      54                            .dwattr $C$DW$4, DW_AT_TI_symbol_name("EdgeCounter_Init")
+      55                            .dwattr $C$DW$4, DW_AT_external
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    2
+
+      56                            .dwattr $C$DW$4, DW_AT_TI_begin_file("../EdgeInterrupt.c")
+      57                            .dwattr $C$DW$4, DW_AT_TI_begin_line(0x2e)
+      58                            .dwattr $C$DW$4, DW_AT_TI_begin_column(0x06)
+      59                            .dwattr $C$DW$4, DW_AT_decl_file("../EdgeInterrupt.c")
+      60                            .dwattr $C$DW$4, DW_AT_decl_line(0x2e)
+      61                            .dwattr $C$DW$4, DW_AT_decl_column(0x06)
+      62                            .dwattr $C$DW$4, DW_AT_TI_max_frame_size(0x08)
+      63                            .dwpsn  file "../EdgeInterrupt.c",line 46,column 28,is_stmt,address EdgeCounter_Init,isa 1
+      64                    
+      65                            .dwfde $C$DW$CIE, EdgeCounter_Init
+      66                    ;----------------------------------------------------------------------
+      67                    ;  46 | void EdgeCounter_Init(void){                                           
+      68                    ;----------------------------------------------------------------------
+      69                    
+      70                    ;*****************************************************************************
+      71                    ;* FUNCTION NAME: EdgeCounter_Init                                           *
+      72                    ;*                                                                           *
+      73                    ;*   Regs Modified     : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+      74                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+      75                    ;*                           FPEXC,FPSCR                                     *
+      76                    ;*   Regs Used         : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+      77                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+      78                    ;*                           FPEXC,FPSCR                                     *
+      79                    ;*   Local Frame Size  : 0 Args + 0 Auto + 4 Save = 4 byte                   *
+      80                    ;*****************************************************************************
+      81 00000000           EdgeCounter_Init:
+      82                    ;* --------------------------------------------------------------------------*
+      83                            .dwcfi  cfa_offset, 0
+      84 00000000 B508              PUSH      {A4, LR}              ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+      85                            .dwcfi  cfa_offset, 8
+      86                            .dwcfi  save_reg_to_mem, 14, -4
+      87                            .dwcfi  save_reg_to_mem, 3, -8
+      88                            .dwpsn  file "../EdgeInterrupt.c",line 47,column 3,is_stmt,isa 1
+      89                    ;----------------------------------------------------------------------
+      90                    ;  47 | SYSCTL_RCGCGPIO_R |= 0x00000020; // (a) activate clock for port F      
+      91                    ;----------------------------------------------------------------------
+      92 00000002 492C              LDR       A2, $C$CON1           ; [DPU_3_PIPE] |47|  ; [ORIG 16-BIT INS]
+      93 00000004 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |47|  ; [ORIG 16-BIT INS]
+      94 00000006 0020F040          ORR       A1, A1, #32           ; [DPU_3_PIPE] |47|  ; [KEEP 32-BIT INS]
+      95 0000000a 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |47|  ; [ORIG 16-BIT INS]
+      96                            .dwpsn  file "../EdgeInterrupt.c",line 48,column 3,is_stmt,isa 1
+      97                    ;----------------------------------------------------------------------
+      98                    ;  48 | FallingEdges = 0;             // (b) initialize counter                
+      99                    ;----------------------------------------------------------------------
+     100 0000000c 492A              LDR       A2, $C$CON2           ; [DPU_3_PIPE] |48|  ; [ORIG 16-BIT INS]
+     101 0000000e 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |48|  ; [ORIG 16-BIT INS]
+     102 00000010 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |48|  ; [ORIG 16-BIT INS]
+     103                            .dwpsn  file "../EdgeInterrupt.c",line 49,column 3,is_stmt,isa 1
+     104                    ;----------------------------------------------------------------------
+     105                    ;  49 | GPIO_PORTF_DIR_R &= ~0x10;    // (c) make PF4 in (built-in button)     
+     106                    ;----------------------------------------------------------------------
+     107 00000012 492A              LDR       A2, $C$CON3           ; [DPU_3_PIPE] |49|  ; [ORIG 16-BIT INS]
+     108 00000014 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |49|  ; [ORIG 16-BIT INS]
+     109 00000016 0010F020          BIC       A1, A1, #16           ; [DPU_3_PIPE] |49|  ; [KEEP 32-BIT INS]
+     110 0000001a 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |49|  ; [ORIG 16-BIT INS]
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    3
+
+     111                            .dwpsn  file "../EdgeInterrupt.c",line 50,column 3,is_stmt,isa 1
+     112                    ;----------------------------------------------------------------------
+     113                    ;  50 | GPIO_PORTF_AFSEL_R &= ~0x10;  //     disable alt funct on PF4          
+     114                    ;----------------------------------------------------------------------
+     115 0000001c 4928              LDR       A2, $C$CON4           ; [DPU_3_PIPE] |50|  ; [ORIG 16-BIT INS]
+     116 0000001e 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |50|  ; [ORIG 16-BIT INS]
+     117 00000020 0010F020          BIC       A1, A1, #16           ; [DPU_3_PIPE] |50|  ; [KEEP 32-BIT INS]
+     118 00000024 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |50|  ; [ORIG 16-BIT INS]
+     119                            .dwpsn  file "../EdgeInterrupt.c",line 51,column 3,is_stmt,isa 1
+     120                    ;----------------------------------------------------------------------
+     121                    ;  51 | GPIO_PORTF_DEN_R |= 0x10;     //     enable digital I/O on PF4         
+     122                    ;----------------------------------------------------------------------
+     123 00000026 4927              LDR       A2, $C$CON5           ; [DPU_3_PIPE] |51|  ; [ORIG 16-BIT INS]
+     124 00000028 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |51|  ; [ORIG 16-BIT INS]
+     125 0000002a 0010F040          ORR       A1, A1, #16           ; [DPU_3_PIPE] |51|  ; [KEEP 32-BIT INS]
+     126 0000002e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |51|  ; [ORIG 16-BIT INS]
+     127                            .dwpsn  file "../EdgeInterrupt.c",line 52,column 3,is_stmt,isa 1
+     128                    ;----------------------------------------------------------------------
+     129                    ;  52 | GPIO_PORTF_PCTL_R &= ~0x000F0000; // configure PF4 as GPIO             
+     130                    ;----------------------------------------------------------------------
+     131 00000030 4925              LDR       A2, $C$CON6           ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+     132 00000032 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+     133 00000034 2070F420          BIC       A1, A1, #983040       ; [DPU_3_PIPE] |52|  ; [KEEP 32-BIT INS]
+     134 00000038 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+     135                            .dwpsn  file "../EdgeInterrupt.c",line 53,column 3,is_stmt,isa 1
+     136                    ;----------------------------------------------------------------------
+     137                    ;  53 | GPIO_PORTF_AMSEL_R = 0;       //     disable analog functionality on PF
+     138                    ;----------------------------------------------------------------------
+     139 0000003a 4924              LDR       A2, $C$CON7           ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+     140 0000003c 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+     141 0000003e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+     142                            .dwpsn  file "../EdgeInterrupt.c",line 54,column 3,is_stmt,isa 1
+     143                    ;----------------------------------------------------------------------
+     144                    ;  54 | GPIO_PORTF_PUR_R |= 0x10;     //     enable weak pull-up on PF4        
+     145                    ;----------------------------------------------------------------------
+     146 00000040 4923              LDR       A2, $C$CON8           ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+     147 00000042 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+     148 00000044 0010F040          ORR       A1, A1, #16           ; [DPU_3_PIPE] |54|  ; [KEEP 32-BIT INS]
+     149 00000048 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+     150                            .dwpsn  file "../EdgeInterrupt.c",line 55,column 3,is_stmt,isa 1
+     151                    ;----------------------------------------------------------------------
+     152                    ;  55 | GPIO_PORTF_IS_R &= ~0x10;     // (d) PF4 is edge-sensitive             
+     153                    ;----------------------------------------------------------------------
+     154 0000004a 4922              LDR       A2, $C$CON9           ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+     155 0000004c 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+     156 0000004e 0010F020          BIC       A1, A1, #16           ; [DPU_3_PIPE] |55|  ; [KEEP 32-BIT INS]
+     157 00000052 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+     158                            .dwpsn  file "../EdgeInterrupt.c",line 56,column 3,is_stmt,isa 1
+     159                    ;----------------------------------------------------------------------
+     160                    ;  56 | GPIO_PORTF_IBE_R &= ~0x10;    //     PF4 is not both edges             
+     161                    ;----------------------------------------------------------------------
+     162 00000054 4920              LDR       A2, $C$CON10          ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+     163 00000056 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+     164 00000058 0010F020          BIC       A1, A1, #16           ; [DPU_3_PIPE] |56|  ; [KEEP 32-BIT INS]
+     165 0000005c 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    4
+
+     166                            .dwpsn  file "../EdgeInterrupt.c",line 57,column 3,is_stmt,isa 1
+     167                    ;----------------------------------------------------------------------
+     168                    ;  57 | GPIO_PORTF_IEV_R &= ~0x10;    //     PF4 falling edge event            
+     169                    ;----------------------------------------------------------------------
+     170 0000005e 491F              LDR       A2, $C$CON11          ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     171 00000060 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     172 00000062 0010F020          BIC       A1, A1, #16           ; [DPU_3_PIPE] |57|  ; [KEEP 32-BIT INS]
+     173 00000066 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     174                            .dwpsn  file "../EdgeInterrupt.c",line 58,column 3,is_stmt,isa 1
+     175                    ;----------------------------------------------------------------------
+     176                    ;  58 | GPIO_PORTF_ICR_R = 0x10;      // (e) clear flag4                       
+     177                    ;----------------------------------------------------------------------
+     178 00000068 491D              LDR       A2, $C$CON12          ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     179 0000006a 2010              MOVS      A1, #16               ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     180 0000006c 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     181                            .dwpsn  file "../EdgeInterrupt.c",line 59,column 3,is_stmt,isa 1
+     182                    ;----------------------------------------------------------------------
+     183                    ;  59 | GPIO_PORTF_IM_R |= 0x10;      // (f) arm interrupt on PF4 *** No IME bi
+     184                    ;     | t as mentioned in Book ***                                             
+     185                    ;----------------------------------------------------------------------
+     186 0000006e 491D              LDR       A2, $C$CON13          ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     187 00000070 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     188 00000072 0010F040          ORR       A1, A1, #16           ; [DPU_3_PIPE] |59|  ; [KEEP 32-BIT INS]
+     189 00000076 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     190                            .dwpsn  file "../EdgeInterrupt.c",line 60,column 3,is_stmt,isa 1
+     191                    ;----------------------------------------------------------------------
+     192                    ;  60 | NVIC_PRI7_R = (NVIC_PRI7_R&0xFF00FFFF)|0x00A00000; // (g) priority 5   
+     193                    ;----------------------------------------------------------------------
+     194 00000078 481B              LDR       A1, $C$CON14          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     195 0000007a 491B              LDR       A2, $C$CON14          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     196 0000007c 6800              LDR       A1, [A1, #0]          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     197 0000007e 007FF420          BIC       A1, A1, #16711680     ; [DPU_3_PIPE] |60|  ; [KEEP 32-BIT INS]
+     198 00000082 0020F440          ORR       A1, A1, #10485760     ; [DPU_3_PIPE] |60|  ; [KEEP 32-BIT INS]
+     199 00000086 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     200                            .dwpsn  file "../EdgeInterrupt.c",line 61,column 3,is_stmt,isa 1
+     201                    ;----------------------------------------------------------------------
+     202                    ;  61 | NVIC_EN0_R = 0x40000000;      // (h) enable interrupt 30 in NVIC       
+     203                    ;----------------------------------------------------------------------
+     204 00000088 4918              LDR       A2, $C$CON15          ; [DPU_3_PIPE] |61|  ; [ORIG 16-BIT INS]
+     205 0000008a 4080F04F          MOV       A1, #1073741824       ; [DPU_3_PIPE] |61|  ; [KEEP 32-BIT INS]
+     206 0000008e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |61|  ; [ORIG 16-BIT INS]
+     207                            .dwpsn  file "../EdgeInterrupt.c",line 62,column 3,is_stmt,isa 1
+     208                    ;----------------------------------------------------------------------
+     209                    ;  62 | EnableInterrupts();           // (i) Clears the I bit                  
+     210                    ;----------------------------------------------------------------------
+     211                    $C$DW$5 .dwtag  DW_TAG_TI_branch
+     212                            .dwattr $C$DW$5, DW_AT_low_pc(0x00)
+     213                            .dwattr $C$DW$5, DW_AT_name("EnableInterrupts")
+     214                            .dwattr $C$DW$5, DW_AT_TI_call
+     215 00000090 FFFEF7FF!         BL        EnableInterrupts      ; [DPU_3_PIPE] |62|  ; [KEEP 32-BIT INS]
+     216                            ; CALL OCCURS {EnableInterrupts }  ; [] |62| 
+     217                            .dwpsn  file "../EdgeInterrupt.c",line 63,column 1,is_stmt,isa 1
+     218                    $C$DW$6 .dwtag  DW_TAG_TI_branch
+     219                            .dwattr $C$DW$6, DW_AT_low_pc(0x00)
+     220                            .dwattr $C$DW$6, DW_AT_TI_return
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    5
+
+     221 00000094 BD08              POP       {A4, PC}              ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     222                            .dwcfi  cfa_offset, 0
+     223                            ; BRANCH OCCURS                  ; [] 
+     224                            .dwattr $C$DW$4, DW_AT_TI_end_file("../EdgeInterrupt.c")
+     225                            .dwattr $C$DW$4, DW_AT_TI_end_line(0x3f)
+     226                            .dwattr $C$DW$4, DW_AT_TI_end_column(0x01)
+     227                            .dwendentry
+     228                            .dwendtag $C$DW$4
+     229                    
+     230 00000096                   .sect   ".text"
+     231                            .clink
+     232                            .thumbfunc GPIOPortF_Handler
+     233 00000096                   .thumb
+     234                            .global GPIOPortF_Handler
+     235                    
+     236                    $C$DW$7 .dwtag  DW_TAG_subprogram, DW_AT_name("GPIOPortF_Handler")
+     237                            .dwattr $C$DW$7, DW_AT_low_pc(GPIOPortF_Handler)
+     238                            .dwattr $C$DW$7, DW_AT_high_pc(0x00)
+     239                            .dwattr $C$DW$7, DW_AT_TI_symbol_name("GPIOPortF_Handler")
+     240                            .dwattr $C$DW$7, DW_AT_external
+     241                            .dwattr $C$DW$7, DW_AT_TI_begin_file("../EdgeInterrupt.c")
+     242                            .dwattr $C$DW$7, DW_AT_TI_begin_line(0x40)
+     243                            .dwattr $C$DW$7, DW_AT_TI_begin_column(0x06)
+     244                            .dwattr $C$DW$7, DW_AT_decl_file("../EdgeInterrupt.c")
+     245                            .dwattr $C$DW$7, DW_AT_decl_line(0x40)
+     246                            .dwattr $C$DW$7, DW_AT_decl_column(0x06)
+     247                            .dwattr $C$DW$7, DW_AT_TI_max_frame_size(0x00)
+     248                            .dwpsn  file "../EdgeInterrupt.c",line 64,column 29,is_stmt,address GPIOPortF_Handler,isa 1
+     249                    
+     250                            .dwfde $C$DW$CIE, GPIOPortF_Handler
+     251                    ;----------------------------------------------------------------------
+     252                    ;  64 | void GPIOPortF_Handler(void){                                          
+     253                    ;----------------------------------------------------------------------
+     254                    
+     255                    ;*****************************************************************************
+     256                    ;* FUNCTION NAME: GPIOPortF_Handler                                          *
+     257                    ;*                                                                           *
+     258                    ;*   Regs Modified     : A1,A2,SR                                            *
+     259                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+     260                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     261                    ;*****************************************************************************
+     262 00000096           GPIOPortF_Handler:
+     263                    ;* --------------------------------------------------------------------------*
+     264                            .dwcfi  cfa_offset, 0
+     265                            .dwpsn  file "../EdgeInterrupt.c",line 65,column 3,is_stmt,isa 1
+     266                    ;----------------------------------------------------------------------
+     267                    ;  65 | GPIO_PORTF_ICR_R = 0x10;      // acknowledge flag4                     
+     268                    ;----------------------------------------------------------------------
+     269 00000096 4912              LDR       A2, $C$CON12          ; [DPU_3_PIPE] |65|  ; [ORIG 16-BIT INS]
+     270 00000098 2010              MOVS      A1, #16               ; [DPU_3_PIPE] |65|  ; [ORIG 16-BIT INS]
+     271 0000009a 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |65|  ; [ORIG 16-BIT INS]
+     272                            .dwpsn  file "../EdgeInterrupt.c",line 66,column 3,is_stmt,isa 1
+     273                    ;----------------------------------------------------------------------
+     274                    ;  66 | FallingEdges = FallingEdges + 1;                                       
+     275                    ;----------------------------------------------------------------------
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    6
+
+     276 0000009c 4806              LDR       A1, $C$CON2           ; [DPU_3_PIPE] |66|  ; [ORIG 16-BIT INS]
+     277 0000009e 4906              LDR       A2, $C$CON2           ; [DPU_3_PIPE] |66|  ; [ORIG 16-BIT INS]
+     278 000000a0 6800              LDR       A1, [A1, #0]          ; [DPU_3_PIPE] |66|  ; [ORIG 16-BIT INS]
+     279 000000a2 1C40              ADDS      A1, A1, #1            ; [DPU_3_PIPE] |66|  ; [ORIG 16-BIT INS]
+     280 000000a4 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |66|  ; [ORIG 16-BIT INS]
+     281                            .dwpsn  file "../EdgeInterrupt.c",line 67,column 1,is_stmt,isa 1
+     282                    $C$DW$8 .dwtag  DW_TAG_TI_branch
+     283                            .dwattr $C$DW$8, DW_AT_low_pc(0x00)
+     284                            .dwattr $C$DW$8, DW_AT_TI_return
+     285 000000a6 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     286                            ; BRANCH OCCURS                  ; [] 
+     287                            .dwattr $C$DW$7, DW_AT_TI_end_file("../EdgeInterrupt.c")
+     288                            .dwattr $C$DW$7, DW_AT_TI_end_line(0x43)
+     289                            .dwattr $C$DW$7, DW_AT_TI_end_column(0x01)
+     290                            .dwendentry
+     291                            .dwendtag $C$DW$7
+     292                    
+     293 000000a8                   .sect   ".text"
+     294                            .clink
+     295                            .thumbfunc main
+     296 000000a8                   .thumb
+     297                            .global main
+     298                    
+     299                    $C$DW$9 .dwtag  DW_TAG_subprogram, DW_AT_name("main")
+     300                            .dwattr $C$DW$9, DW_AT_low_pc(main)
+     301                            .dwattr $C$DW$9, DW_AT_high_pc(0x00)
+     302                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("main")
+     303                            .dwattr $C$DW$9, DW_AT_external
+     304                            .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$10)
+     305                            .dwattr $C$DW$9, DW_AT_TI_begin_file("../EdgeInterrupt.c")
+     306                            .dwattr $C$DW$9, DW_AT_TI_begin_line(0x46)
+     307                            .dwattr $C$DW$9, DW_AT_TI_begin_column(0x05)
+     308                            .dwattr $C$DW$9, DW_AT_decl_file("../EdgeInterrupt.c")
+     309                            .dwattr $C$DW$9, DW_AT_decl_line(0x46)
+     310                            .dwattr $C$DW$9, DW_AT_decl_column(0x05)
+     311                            .dwattr $C$DW$9, DW_AT_TI_max_frame_size(0x08)
+     312                            .dwpsn  file "../EdgeInterrupt.c",line 70,column 15,is_stmt,address main,isa 1
+     313                    
+     314                            .dwfde $C$DW$CIE, main
+     315                    ;----------------------------------------------------------------------
+     316                    ;  70 | int main(void){                                                        
+     317                    ;----------------------------------------------------------------------
+     318                    
+     319                    ;*****************************************************************************
+     320                    ;* FUNCTION NAME: main                                                       *
+     321                    ;*                                                                           *
+     322                    ;*   Regs Modified     : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     323                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+     324                    ;*                           FPEXC,FPSCR                                     *
+     325                    ;*   Regs Used         : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     326                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+     327                    ;*                           FPEXC,FPSCR                                     *
+     328                    ;*   Local Frame Size  : 0 Args + 0 Auto + 4 Save = 4 byte                   *
+     329                    ;*****************************************************************************
+     330 000000a8           main:
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    7
+
+     331                    ;* --------------------------------------------------------------------------*
+     332                            .dwcfi  cfa_offset, 0
+     333 000000a8 B508              PUSH      {A4, LR}              ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     334                            .dwcfi  cfa_offset, 8
+     335                            .dwcfi  save_reg_to_mem, 14, -4
+     336                            .dwcfi  save_reg_to_mem, 3, -8
+     337                            .dwpsn  file "../EdgeInterrupt.c",line 71,column 3,is_stmt,isa 1
+     338                    ;----------------------------------------------------------------------
+     339                    ;  71 | EdgeCounter_Init();           // initialize GPIO Port F interrupt      
+     340                    ;----------------------------------------------------------------------
+     341                    $C$DW$10        .dwtag  DW_TAG_TI_branch
+     342                            .dwattr $C$DW$10, DW_AT_low_pc(0x00)
+     343                            .dwattr $C$DW$10, DW_AT_name("EdgeCounter_Init")
+     344                            .dwattr $C$DW$10, DW_AT_TI_call
+     345 000000aa FFA9F7FF          BL        EdgeCounter_Init      ; [DPU_3_PIPE] |71|  ; [KEEP 32-BIT INS]
+     346                            ; CALL OCCURS {EdgeCounter_Init }  ; [] |71| 
+     347                            .dwpsn  file "../EdgeInterrupt.c",line 72,column 9,is_stmt,isa 1
+     348                    ;----------------------------------------------------------------------
+     349                    ;  72 | while(1){                                                              
+     350                    ;----------------------------------------------------------------------
+     351                    ;* --------------------------------------------------------------------------*
+     352                    ;*   BEGIN LOOP ||$C$L1||
+     353                    ;*
+     354                    ;*   Loop source line                : 72
+     355                    ;*   Loop closing brace source line  : 74
+     356                    ;*   Known Minimum Trip Count        : 1
+     357                    ;*   Known Maximum Trip Count        : 4294967295
+     358                    ;*   Known Max Trip Count Factor     : 1
+     359                    ;* --------------------------------------------------------------------------*
+     360 000000ae           ||$C$L1||:    
+     361                            .dwpsn  file "../EdgeInterrupt.c",line 73,column 5,is_stmt,isa 1
+     362                    ;----------------------------------------------------------------------
+     363                    ;  73 | WaitForInterrupt();                                                    
+     364                    ;----------------------------------------------------------------------
+     365                    $C$DW$11        .dwtag  DW_TAG_TI_branch
+     366                            .dwattr $C$DW$11, DW_AT_low_pc(0x00)
+     367                            .dwattr $C$DW$11, DW_AT_name("WaitForInterrupt")
+     368                            .dwattr $C$DW$11, DW_AT_TI_call
+     369 000000ae FFFEF7FF!         BL        WaitForInterrupt      ; [DPU_3_PIPE] |73|  ; [KEEP 32-BIT INS]
+     370                            ; CALL OCCURS {WaitForInterrupt }  ; [] |73| 
+     371                            .dwpsn  file "../EdgeInterrupt.c",line 72,column 9,is_stmt,isa 1
+     372 000000b2 E7FC              B         ||$C$L1||             ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     373                            ; BRANCH OCCURS {||$C$L1||}      ; [] |72| 
+     374                    ;* --------------------------------------------------------------------------*
+     375                            .dwattr $C$DW$9, DW_AT_TI_end_file("../EdgeInterrupt.c")
+     376                            .dwattr $C$DW$9, DW_AT_TI_end_line(0x4b)
+     377                            .dwattr $C$DW$9, DW_AT_TI_end_column(0x01)
+     378                            .dwendentry
+     379                            .dwendtag $C$DW$9
+     380                    
+     381                    ;******************************************************************************
+     382                    ;* CONSTANT TABLE                                                             *
+     383                    ;******************************************************************************
+     384 000000b4                   .sect   ".text"
+     385                            .align  4
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    8
+
+     386 000000b4 400FE608  ||$C$CON1||:    .bits   1074783752,32
+     387                            .align  4
+     388 000000b8 00000000! ||$C$CON2||:    .bits   FallingEdges,32
+     389                            .align  4
+     390 000000bc 40025400  ||$C$CON3||:    .bits   1073894400,32
+     391                            .align  4
+     392 000000c0 40025420  ||$C$CON4||:    .bits   1073894432,32
+     393                            .align  4
+     394 000000c4 4002551C  ||$C$CON5||:    .bits   1073894684,32
+     395                            .align  4
+     396 000000c8 4002552C  ||$C$CON6||:    .bits   1073894700,32
+     397                            .align  4
+     398 000000cc 40025528  ||$C$CON7||:    .bits   1073894696,32
+     399                            .align  4
+     400 000000d0 40025510  ||$C$CON8||:    .bits   1073894672,32
+     401                            .align  4
+     402 000000d4 40025404  ||$C$CON9||:    .bits   1073894404,32
+     403                            .align  4
+     404 000000d8 40025408  ||$C$CON10||:   .bits   1073894408,32
+     405                            .align  4
+     406 000000dc 4002540C  ||$C$CON11||:   .bits   1073894412,32
+     407                            .align  4
+     408 000000e0 4002541C  ||$C$CON12||:   .bits   1073894428,32
+     409                            .align  4
+     410 000000e4 40025410  ||$C$CON13||:   .bits   1073894416,32
+     411                            .align  4
+     412 000000e8 E000E41C  ||$C$CON14||:   .bits   -536812516,32
+     413                            .align  4
+     414 000000ec E000E100  ||$C$CON15||:   .bits   -536813312,32
+     415                    ;*****************************************************************************
+     416                    ;* UNDEFINED EXTERNAL REFERENCES                                             *
+     417                    ;*****************************************************************************
+     418                            .global EnableInterrupts
+     419                            .global WaitForInterrupt
+     420                    
+     421                    ;******************************************************************************
+     422                    ;* BUILD ATTRIBUTES                                                           *
+     423                    ;******************************************************************************
+     424                            .battr "aeabi", Tag_File, 1, Tag_ABI_PCS_wchar_t(2)
+     425                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_rounding(0)
+     426                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_denormal(0)
+     427                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_exceptions(0)
+     428                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_number_model(1)
+     429                            .battr "aeabi", Tag_File, 1, Tag_ABI_enum_size(0)
+     430                            .battr "aeabi", Tag_File, 1, Tag_ABI_optimization_goals(5)
+     431                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_optimization_goals(0)
+     432                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+     433                            .battr "TI", Tag_File, 1, Tag_FP_interface(1)
+     434                    
+     435                    ;******************************************************************************
+     436                    ;* TYPE INFORMATION                                                           *
+     437                    ;******************************************************************************
+     438                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+     439                            .dwattr $C$DW$T$2, DW_AT_name("void")
+     440                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE    9
+
+     441                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+     442                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+     443                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+     444                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+     445                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+     446                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+     447                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+     448                    $C$DW$T$21      .dwtag  DW_TAG_typedef, DW_AT_name("int8_t")
+     449                            .dwattr $C$DW$T$21, DW_AT_type(*$C$DW$T$5)
+     450                            .dwattr $C$DW$T$21, DW_AT_language(DW_LANG_C)
+     451                            .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     452                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x2a)
+     453                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x1d)
+     454                    $C$DW$T$22      .dwtag  DW_TAG_typedef, DW_AT_name("int_least8_t")
+     455                            .dwattr $C$DW$T$22, DW_AT_type(*$C$DW$T$21)
+     456                            .dwattr $C$DW$T$22, DW_AT_language(DW_LANG_C)
+     457                            .dwattr $C$DW$T$22, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     458                            .dwattr $C$DW$T$22, DW_AT_decl_line(0x37)
+     459                            .dwattr $C$DW$T$22, DW_AT_decl_column(0x17)
+     460                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+     461                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+     462                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+     463                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+     464                    $C$DW$T$23      .dwtag  DW_TAG_typedef, DW_AT_name("uint8_t")
+     465                            .dwattr $C$DW$T$23, DW_AT_type(*$C$DW$T$6)
+     466                            .dwattr $C$DW$T$23, DW_AT_language(DW_LANG_C)
+     467                            .dwattr $C$DW$T$23, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     468                            .dwattr $C$DW$T$23, DW_AT_decl_line(0x2b)
+     469                            .dwattr $C$DW$T$23, DW_AT_decl_column(0x1c)
+     470                    $C$DW$T$24      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least8_t")
+     471                            .dwattr $C$DW$T$24, DW_AT_type(*$C$DW$T$23)
+     472                            .dwattr $C$DW$T$24, DW_AT_language(DW_LANG_C)
+     473                            .dwattr $C$DW$T$24, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     474                            .dwattr $C$DW$T$24, DW_AT_decl_line(0x38)
+     475                            .dwattr $C$DW$T$24, DW_AT_decl_column(0x16)
+     476                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+     477                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+     478                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+     479                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+     480                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+     481                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+     482                            .dwattr $C$DW$T$8, DW_AT_name("short")
+     483                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+     484                    $C$DW$T$25      .dwtag  DW_TAG_typedef, DW_AT_name("int16_t")
+     485                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$8)
+     486                            .dwattr $C$DW$T$25, DW_AT_language(DW_LANG_C)
+     487                            .dwattr $C$DW$T$25, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     488                            .dwattr $C$DW$T$25, DW_AT_decl_line(0x2c)
+     489                            .dwattr $C$DW$T$25, DW_AT_decl_column(0x1d)
+     490                    $C$DW$T$26      .dwtag  DW_TAG_typedef, DW_AT_name("int_least16_t")
+     491                            .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$25)
+     492                            .dwattr $C$DW$T$26, DW_AT_language(DW_LANG_C)
+     493                            .dwattr $C$DW$T$26, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     494                            .dwattr $C$DW$T$26, DW_AT_decl_line(0x3a)
+     495                            .dwattr $C$DW$T$26, DW_AT_decl_column(0x17)
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE   10
+
+     496                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+     497                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+     498                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+     499                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+     500                    $C$DW$T$27      .dwtag  DW_TAG_typedef, DW_AT_name("uint16_t")
+     501                            .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$9)
+     502                            .dwattr $C$DW$T$27, DW_AT_language(DW_LANG_C)
+     503                            .dwattr $C$DW$T$27, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     504                            .dwattr $C$DW$T$27, DW_AT_decl_line(0x2d)
+     505                            .dwattr $C$DW$T$27, DW_AT_decl_column(0x1c)
+     506                    $C$DW$T$28      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least16_t")
+     507                            .dwattr $C$DW$T$28, DW_AT_type(*$C$DW$T$27)
+     508                            .dwattr $C$DW$T$28, DW_AT_language(DW_LANG_C)
+     509                            .dwattr $C$DW$T$28, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     510                            .dwattr $C$DW$T$28, DW_AT_decl_line(0x3b)
+     511                            .dwattr $C$DW$T$28, DW_AT_decl_column(0x16)
+     512                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+     513                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+     514                            .dwattr $C$DW$T$10, DW_AT_name("int")
+     515                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+     516                    $C$DW$T$30      .dwtag  DW_TAG_typedef, DW_AT_name("int32_t")
+     517                            .dwattr $C$DW$T$30, DW_AT_type(*$C$DW$T$10)
+     518                            .dwattr $C$DW$T$30, DW_AT_language(DW_LANG_C)
+     519                            .dwattr $C$DW$T$30, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     520                            .dwattr $C$DW$T$30, DW_AT_decl_line(0x2e)
+     521                            .dwattr $C$DW$T$30, DW_AT_decl_column(0x1d)
+     522                    $C$DW$T$31      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast16_t")
+     523                            .dwattr $C$DW$T$31, DW_AT_type(*$C$DW$T$30)
+     524                            .dwattr $C$DW$T$31, DW_AT_language(DW_LANG_C)
+     525                            .dwattr $C$DW$T$31, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     526                            .dwattr $C$DW$T$31, DW_AT_decl_line(0x47)
+     527                            .dwattr $C$DW$T$31, DW_AT_decl_column(0x17)
+     528                    $C$DW$T$32      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast32_t")
+     529                            .dwattr $C$DW$T$32, DW_AT_type(*$C$DW$T$30)
+     530                            .dwattr $C$DW$T$32, DW_AT_language(DW_LANG_C)
+     531                            .dwattr $C$DW$T$32, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     532                            .dwattr $C$DW$T$32, DW_AT_decl_line(0x4a)
+     533                            .dwattr $C$DW$T$32, DW_AT_decl_column(0x17)
+     534                    $C$DW$T$33      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast8_t")
+     535                            .dwattr $C$DW$T$33, DW_AT_type(*$C$DW$T$30)
+     536                            .dwattr $C$DW$T$33, DW_AT_language(DW_LANG_C)
+     537                            .dwattr $C$DW$T$33, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     538                            .dwattr $C$DW$T$33, DW_AT_decl_line(0x45)
+     539                            .dwattr $C$DW$T$33, DW_AT_decl_column(0x17)
+     540                    $C$DW$T$34      .dwtag  DW_TAG_typedef, DW_AT_name("int_least32_t")
+     541                            .dwattr $C$DW$T$34, DW_AT_type(*$C$DW$T$30)
+     542                            .dwattr $C$DW$T$34, DW_AT_language(DW_LANG_C)
+     543                            .dwattr $C$DW$T$34, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     544                            .dwattr $C$DW$T$34, DW_AT_decl_line(0x3c)
+     545                            .dwattr $C$DW$T$34, DW_AT_decl_column(0x17)
+     546                    $C$DW$T$35      .dwtag  DW_TAG_typedef, DW_AT_name("intptr_t")
+     547                            .dwattr $C$DW$T$35, DW_AT_type(*$C$DW$T$10)
+     548                            .dwattr $C$DW$T$35, DW_AT_language(DW_LANG_C)
+     549                            .dwattr $C$DW$T$35, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     550                            .dwattr $C$DW$T$35, DW_AT_decl_line(0x52)
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE   11
+
+     551                            .dwattr $C$DW$T$35, DW_AT_decl_column(0x1a)
+     552                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+     553                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+     554                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+     555                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+     556                    $C$DW$T$36      .dwtag  DW_TAG_typedef, DW_AT_name("uint32_t")
+     557                            .dwattr $C$DW$T$36, DW_AT_type(*$C$DW$T$11)
+     558                            .dwattr $C$DW$T$36, DW_AT_language(DW_LANG_C)
+     559                            .dwattr $C$DW$T$36, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     560                            .dwattr $C$DW$T$36, DW_AT_decl_line(0x2f)
+     561                            .dwattr $C$DW$T$36, DW_AT_decl_column(0x1c)
+     562                    $C$DW$T$37      .dwtag  DW_TAG_volatile_type
+     563                            .dwattr $C$DW$T$37, DW_AT_type(*$C$DW$T$36)
+     564                    $C$DW$T$39      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast16_t")
+     565                            .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$36)
+     566                            .dwattr $C$DW$T$39, DW_AT_language(DW_LANG_C)
+     567                            .dwattr $C$DW$T$39, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     568                            .dwattr $C$DW$T$39, DW_AT_decl_line(0x48)
+     569                            .dwattr $C$DW$T$39, DW_AT_decl_column(0x16)
+     570                    $C$DW$T$40      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast32_t")
+     571                            .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$36)
+     572                            .dwattr $C$DW$T$40, DW_AT_language(DW_LANG_C)
+     573                            .dwattr $C$DW$T$40, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     574                            .dwattr $C$DW$T$40, DW_AT_decl_line(0x4b)
+     575                            .dwattr $C$DW$T$40, DW_AT_decl_column(0x16)
+     576                    $C$DW$T$41      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast8_t")
+     577                            .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$36)
+     578                            .dwattr $C$DW$T$41, DW_AT_language(DW_LANG_C)
+     579                            .dwattr $C$DW$T$41, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     580                            .dwattr $C$DW$T$41, DW_AT_decl_line(0x46)
+     581                            .dwattr $C$DW$T$41, DW_AT_decl_column(0x16)
+     582                    $C$DW$T$42      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least32_t")
+     583                            .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$36)
+     584                            .dwattr $C$DW$T$42, DW_AT_language(DW_LANG_C)
+     585                            .dwattr $C$DW$T$42, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     586                            .dwattr $C$DW$T$42, DW_AT_decl_line(0x3d)
+     587                            .dwattr $C$DW$T$42, DW_AT_decl_column(0x16)
+     588                    $C$DW$T$43      .dwtag  DW_TAG_typedef, DW_AT_name("uintptr_t")
+     589                            .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$11)
+     590                            .dwattr $C$DW$T$43, DW_AT_language(DW_LANG_C)
+     591                            .dwattr $C$DW$T$43, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     592                            .dwattr $C$DW$T$43, DW_AT_decl_line(0x53)
+     593                            .dwattr $C$DW$T$43, DW_AT_decl_column(0x1a)
+     594                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+     595                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+     596                            .dwattr $C$DW$T$12, DW_AT_name("long")
+     597                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x04)
+     598                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+     599                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+     600                            .dwattr $C$DW$T$13, DW_AT_name("unsigned long")
+     601                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x04)
+     602                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+     603                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+     604                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+     605                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE   12
+
+     606                    $C$DW$T$44      .dwtag  DW_TAG_typedef, DW_AT_name("int64_t")
+     607                            .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$14)
+     608                            .dwattr $C$DW$T$44, DW_AT_language(DW_LANG_C)
+     609                            .dwattr $C$DW$T$44, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     610                            .dwattr $C$DW$T$44, DW_AT_decl_line(0x32)
+     611                            .dwattr $C$DW$T$44, DW_AT_decl_column(0x21)
+     612                    $C$DW$T$45      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast64_t")
+     613                            .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$44)
+     614                            .dwattr $C$DW$T$45, DW_AT_language(DW_LANG_C)
+     615                            .dwattr $C$DW$T$45, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     616                            .dwattr $C$DW$T$45, DW_AT_decl_line(0x4e)
+     617                            .dwattr $C$DW$T$45, DW_AT_decl_column(0x17)
+     618                    $C$DW$T$46      .dwtag  DW_TAG_typedef, DW_AT_name("int_least64_t")
+     619                            .dwattr $C$DW$T$46, DW_AT_type(*$C$DW$T$44)
+     620                            .dwattr $C$DW$T$46, DW_AT_language(DW_LANG_C)
+     621                            .dwattr $C$DW$T$46, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     622                            .dwattr $C$DW$T$46, DW_AT_decl_line(0x40)
+     623                            .dwattr $C$DW$T$46, DW_AT_decl_column(0x17)
+     624                    $C$DW$T$47      .dwtag  DW_TAG_typedef, DW_AT_name("intmax_t")
+     625                            .dwattr $C$DW$T$47, DW_AT_type(*$C$DW$T$14)
+     626                            .dwattr $C$DW$T$47, DW_AT_language(DW_LANG_C)
+     627                            .dwattr $C$DW$T$47, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     628                            .dwattr $C$DW$T$47, DW_AT_decl_line(0x56)
+     629                            .dwattr $C$DW$T$47, DW_AT_decl_column(0x20)
+     630                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+     631                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+     632                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+     633                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+     634                    $C$DW$T$48      .dwtag  DW_TAG_typedef, DW_AT_name("uint64_t")
+     635                            .dwattr $C$DW$T$48, DW_AT_type(*$C$DW$T$15)
+     636                            .dwattr $C$DW$T$48, DW_AT_language(DW_LANG_C)
+     637                            .dwattr $C$DW$T$48, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     638                            .dwattr $C$DW$T$48, DW_AT_decl_line(0x33)
+     639                            .dwattr $C$DW$T$48, DW_AT_decl_column(0x20)
+     640                    $C$DW$T$49      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast64_t")
+     641                            .dwattr $C$DW$T$49, DW_AT_type(*$C$DW$T$48)
+     642                            .dwattr $C$DW$T$49, DW_AT_language(DW_LANG_C)
+     643                            .dwattr $C$DW$T$49, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     644                            .dwattr $C$DW$T$49, DW_AT_decl_line(0x4f)
+     645                            .dwattr $C$DW$T$49, DW_AT_decl_column(0x16)
+     646                    $C$DW$T$50      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least64_t")
+     647                            .dwattr $C$DW$T$50, DW_AT_type(*$C$DW$T$48)
+     648                            .dwattr $C$DW$T$50, DW_AT_language(DW_LANG_C)
+     649                            .dwattr $C$DW$T$50, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     650                            .dwattr $C$DW$T$50, DW_AT_decl_line(0x41)
+     651                            .dwattr $C$DW$T$50, DW_AT_decl_column(0x16)
+     652                    $C$DW$T$51      .dwtag  DW_TAG_typedef, DW_AT_name("uintmax_t")
+     653                            .dwattr $C$DW$T$51, DW_AT_type(*$C$DW$T$15)
+     654                            .dwattr $C$DW$T$51, DW_AT_language(DW_LANG_C)
+     655                            .dwattr $C$DW$T$51, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     656                            .dwattr $C$DW$T$51, DW_AT_decl_line(0x57)
+     657                            .dwattr $C$DW$T$51, DW_AT_decl_column(0x20)
+     658                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+     659                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+     660                            .dwattr $C$DW$T$16, DW_AT_name("float")
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE   13
+
+     661                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+     662                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+     663                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+     664                            .dwattr $C$DW$T$17, DW_AT_name("double")
+     665                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+     666                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+     667                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+     668                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+     669                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+     670                    $C$DW$T$53      .dwtag  DW_TAG_pointer_type
+     671                            .dwattr $C$DW$T$53, DW_AT_type(*$C$DW$T$6)
+     672                            .dwattr $C$DW$T$53, DW_AT_address_class(0x20)
+     673                    $C$DW$T$54      .dwtag  DW_TAG_typedef, DW_AT_name("__builtin_va_list")
+     674                            .dwattr $C$DW$T$54, DW_AT_type(*$C$DW$T$53)
+     675                            .dwattr $C$DW$T$54, DW_AT_language(DW_LANG_C)
+     676                            .dwattr $C$DW$T$54, DW_AT_decl_file("../EdgeInterrupt.c")
+     677                            .dwattr $C$DW$T$54, DW_AT_decl_line(0x4b)
+     678                            .dwattr $C$DW$T$54, DW_AT_decl_column(0x01)
+     679                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+     680                    
+     681                    ;***************************************************************
+     682                    ;* DWARF CIE ENTRIES                                           *
+     683                    ;***************************************************************
+     684                    
+     685                    $C$DW$CIE       .dwcie 14
+     686                            .dwcfi  cfa_register, 13
+     687                            .dwcfi  cfa_offset, 0
+     688                            .dwcfi  undefined, 0
+     689                            .dwcfi  undefined, 1
+     690                            .dwcfi  undefined, 2
+     691                            .dwcfi  undefined, 3
+     692                            .dwcfi  same_value, 4
+     693                            .dwcfi  same_value, 5
+     694                            .dwcfi  same_value, 6
+     695                            .dwcfi  same_value, 7
+     696                            .dwcfi  same_value, 8
+     697                            .dwcfi  same_value, 9
+     698                            .dwcfi  same_value, 10
+     699                            .dwcfi  same_value, 11
+     700                            .dwcfi  undefined, 12
+     701                            .dwcfi  undefined, 13
+     702                            .dwcfi  undefined, 14
+     703                            .dwcfi  undefined, 14
+     704                            .dwcfi  undefined, 7
+     705                            .dwcfi  undefined, 64
+     706                            .dwcfi  undefined, 65
+     707                            .dwcfi  undefined, 66
+     708                            .dwcfi  undefined, 67
+     709                            .dwcfi  undefined, 68
+     710                            .dwcfi  undefined, 69
+     711                            .dwcfi  undefined, 70
+     712                            .dwcfi  undefined, 71
+     713                            .dwcfi  undefined, 72
+     714                            .dwcfi  undefined, 73
+     715                            .dwcfi  undefined, 74
+TI ARM Assembler PC v5.2.4 Sat Sep 12 07:55:35 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+EdgeInterrupt.asm                                                    PAGE   14
+
+     716                            .dwcfi  undefined, 75
+     717                            .dwcfi  undefined, 76
+     718                            .dwcfi  undefined, 77
+     719                            .dwcfi  undefined, 78
+     720                            .dwcfi  undefined, 79
+     721                            .dwcfi  same_value, 80
+     722                            .dwcfi  same_value, 81
+     723                            .dwcfi  same_value, 82
+     724                            .dwcfi  same_value, 83
+     725                            .dwcfi  same_value, 84
+     726                            .dwcfi  same_value, 85
+     727                            .dwcfi  same_value, 86
+     728                            .dwcfi  same_value, 87
+     729                            .dwcfi  same_value, 88
+     730                            .dwcfi  same_value, 89
+     731                            .dwcfi  same_value, 90
+     732                            .dwcfi  same_value, 91
+     733                            .dwcfi  same_value, 92
+     734                            .dwcfi  same_value, 93
+     735                            .dwcfi  same_value, 94
+     736                            .dwcfi  same_value, 95
+     737                            .dwendentry
+     738                            .dwendtag $C$DW$CU
+     739                    
+
+--------------------------
+Thumb2 Statistics
+--------------------------
+Number of Thumb2 ins converted to Thumb = 0 (0%)
+Number of Thumb ins in input = 58 (78%)
+Number of Thumb2 ins encoded as Thumb2 = 16 (100%)
+Number of Thumb2 ins converted to 2 OPND Thumb = 0
+
+
+No Assembly Errors, No Assembly Warnings

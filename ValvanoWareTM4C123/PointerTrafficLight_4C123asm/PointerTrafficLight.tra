@@ -1,0 +1,22 @@
+*** Creating Trace Output File 'PointerTrafficLight.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"systick.o"'
+### List of Objects: adding '"pll.o"'
+### List of Objects: adding '"pointertrafficlight.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4 "startup.o" "systick.o" "pll.o" "pointertrafficlight.o" 
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\PointerTrafficLight.map" -o PointerTrafficLight.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'PointerTrafficLight.axf'
+### ADS-LD Command File: 'PointerTrafficLight.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'PointerTrafficLight.lnp', Handle=0x0000031C
+### Writing '.lnp' file
+### ADS-LD Command file 'PointerTrafficLight.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Dropbox\ArmBook\LaunchPad\LaunchPadware\LLFIFO_4C123\LLFifo.uvproj
+Project File Date:  09/11/2013
+
+<h2>Output:</h2>
+Build target 'LLFifo'
+compiling heap.c...
+compiling LLFifo.c...
+compiling LLFifoTestMain.c...
+LLFifoTestMain.c(35): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(38): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(41): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(43): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(46): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(54): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(56): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(58): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(60): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(62): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+LLFifoTestMain.c(64): warning:  #167-D: argument of type "long *" is incompatible with parameter of type "int32_t *"
+linking...
+Program Size: Code=1608 RO-data=32 RW-data=32 ZI-data=1200  
+".\LLFifo.axf" - 0 Errors, 11 Warning(s).
+Build target 'LLFifo'
+compiling heap.c...
+compiling LLFifo.c...
+compiling LLFifoTestMain.c...
+linking...
+Program Size: Code=1608 RO-data=32 RW-data=32 ZI-data=1200  
+".\LLFifo.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\LLFIFO_4C123\\LLFifo.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'LLFifo'
+compiling LLFifoTestMain.c...
+linking...
+Program Size: Code=1628 RO-data=32 RW-data=36 ZI-data=1204  
+".\LLFifo.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\Dropbox\\ArmBook\\LaunchPad\\LaunchPadware\\LLFIFO_4C123\\LLFifo.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Clean started: Project: 'LLFifo'
+   deleting intermediate output files for target 'LLFifo'

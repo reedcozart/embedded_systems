@@ -1,0 +1,1061 @@
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* TI ARM C/C++ Codegen                                             PC v5.2.4 *
+       3                    ;* Date/Time created: Thu Sep 17 23:20:47 2015                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --arm_vmrs_si_workaround=off --code_state=16 --diag_wrap=off --disab
+       6 00000000                   .thumb
+       7                    
+       8                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+       9                            .dwattr $C$DW$CU, DW_AT_name("../LED.c")
+      10                            .dwattr $C$DW$CU, DW_AT_producer("TI TI ARM C/C++ Codegen PC v5.2.4 Copyright (c) 1996-2015 Te
+      11                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      12                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Dropbox\ArmBook\LaunchPad\ValvanoWareTM4C123\ESP8266_4C12
+      13                    ;       C:\ti\ccsv6\tools\compiler\ti-cgt-arm_5.2.4\bin\armacpia.exe -@C:\\Users\\VALVAN~1\\AppData\\L
+      14 00000000                   .sect   ".text"
+      15                            .clink
+      16                            .thumbfunc LED_Init
+      17 00000000                   .thumb
+      18                            .global LED_Init
+      19                    
+      20                    $C$DW$1 .dwtag  DW_TAG_subprogram, DW_AT_name("LED_Init")
+      21                            .dwattr $C$DW$1, DW_AT_low_pc(LED_Init)
+      22                            .dwattr $C$DW$1, DW_AT_high_pc(0x00)
+      23                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("LED_Init")
+      24                            .dwattr $C$DW$1, DW_AT_external
+      25                            .dwattr $C$DW$1, DW_AT_TI_begin_file("../LED.c")
+      26                            .dwattr $C$DW$1, DW_AT_TI_begin_line(0x33)
+      27                            .dwattr $C$DW$1, DW_AT_TI_begin_column(0x06)
+      28                            .dwattr $C$DW$1, DW_AT_decl_file("../LED.c")
+      29                            .dwattr $C$DW$1, DW_AT_decl_line(0x33)
+      30                            .dwattr $C$DW$1, DW_AT_decl_column(0x06)
+      31                            .dwattr $C$DW$1, DW_AT_TI_max_frame_size(0x00)
+      32                            .dwpsn  file "../LED.c",line 51,column 20,is_stmt,address LED_Init,isa 1
+      33                    
+      34                            .dwfde $C$DW$CIE, LED_Init
+      35                    ;----------------------------------------------------------------------
+      36                    ;  51 | void LED_Init(void){                                                   
+      37                    ;----------------------------------------------------------------------
+      38                    
+      39                    ;*****************************************************************************
+      40                    ;* FUNCTION NAME: LED_Init                                                   *
+      41                    ;*                                                                           *
+      42                    ;*   Regs Modified     : A1,A2,SR                                            *
+      43                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+      44                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+      45                    ;*****************************************************************************
+      46 00000000           LED_Init:
+      47                    ;* --------------------------------------------------------------------------*
+      48                            .dwcfi  cfa_offset, 0
+      49                            .dwpsn  file "../LED.c",line 52,column 3,is_stmt,isa 1
+      50                    ;----------------------------------------------------------------------
+      51                    ;  52 | SYSCTL_RCGCGPIO_R |= 0x20;     // 1) activate Port F                   
+      52                    ;----------------------------------------------------------------------
+      53 00000000 4927              LDR       A2, $C$CON1           ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+      54 00000002 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+      55 00000004 0020F040          ORR       A1, A1, #32           ; [DPU_3_PIPE] |52|  ; [KEEP 32-BIT INS]
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    2
+
+      56 00000008 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |52|  ; [ORIG 16-BIT INS]
+      57                            .dwpsn  file "../LED.c",line 53,column 3,is_stmt,isa 1
+      58                    ;----------------------------------------------------------------------
+      59                    ;  53 | while((SYSCTL_PRGPIO_R & 0x20)!=0x20){}; // wait to finish activating
+      60                    ;     |                                                                        
+      61                    ;----------------------------------------------------------------------
+      62                    ;* --------------------------------------------------------------------------*
+      63                    ;*   BEGIN LOOP ||$C$L1||
+      64                    ;*
+      65                    ;*   Loop source line                : 53
+      66                    ;*   Loop closing brace source line  : 53
+      67                    ;*   Known Minimum Trip Count        : 1
+      68                    ;*   Known Maximum Trip Count        : 4294967295
+      69                    ;*   Known Max Trip Count Factor     : 1
+      70                    ;* --------------------------------------------------------------------------*
+      71 0000000a           ||$C$L1||:    
+      72                            .dwpsn  file "../LED.c",line 53,column 9,is_stmt,isa 1
+      73 0000000a 4826              LDR       A1, $C$CON2           ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+      74 0000000c 6800              LDR       A1, [A1, #0]          ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+      75 0000000e 0980              LSRS      A1, A1, #6            ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+      76 00000010 D3FB              BCC       ||$C$L1||             ; [DPU_3_PIPE] |53|  ; [ORIG 16-BIT INS]
+      77                            ; BRANCHCC OCCURS {||$C$L1||}    ; [] |53| 
+      78                    ;* --------------------------------------------------------------------------*
+      79                            .dwpsn  file "../LED.c",line 54,column 3,is_stmt,isa 1
+      80                    ;----------------------------------------------------------------------
+      81                    ;  54 | GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;// 2a) unlock GPIO Port F Commit Regi
+      82                    ;     | ster                                                                   
+      83                    ;----------------------------------------------------------------------
+      84 00000012 4826              LDR       A1, $C$CON4           ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+      85 00000014 4924              LDR       A2, $C$CON3           ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+      86 00000016 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |54|  ; [ORIG 16-BIT INS]
+      87                            .dwpsn  file "../LED.c",line 55,column 3,is_stmt,isa 1
+      88                    ;----------------------------------------------------------------------
+      89                    ;  55 | GPIO_PORTF_CR_R = 0x1F;        // 2b) enable commit for PF4-PF0        
+      90                    ;----------------------------------------------------------------------
+      91 00000018 4925              LDR       A2, $C$CON5           ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+      92 0000001a 201F              MOVS      A1, #31               ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+      93 0000001c 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |55|  ; [ORIG 16-BIT INS]
+      94                            .dwpsn  file "../LED.c",line 56,column 3,is_stmt,isa 1
+      95                    ;----------------------------------------------------------------------
+      96                    ;  56 | GPIO_PORTF_AMSEL_R &= ~0x1F;   // 3) disable analog functionality on PF
+      97                    ;     | 4-PF0                                                                  
+      98                    ;----------------------------------------------------------------------
+      99 0000001e 4925              LDR       A2, $C$CON6           ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+     100 00000020 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+     101 00000022 001FF020          BIC       A1, A1, #31           ; [DPU_3_PIPE] |56|  ; [KEEP 32-BIT INS]
+     102 00000026 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |56|  ; [ORIG 16-BIT INS]
+     103                            .dwpsn  file "../LED.c",line 57,column 3,is_stmt,isa 1
+     104                    ;----------------------------------------------------------------------
+     105                    ;  57 | GPIO_PORTF_PCTL_R = 0x00000000;// 4) configure PF0-PF4 as GPIO         
+     106                    ;----------------------------------------------------------------------
+     107 00000028 4923              LDR       A2, $C$CON7           ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     108 0000002a 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     109 0000002c 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |57|  ; [ORIG 16-BIT INS]
+     110                            .dwpsn  file "../LED.c",line 58,column 3,is_stmt,isa 1
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    3
+
+     111                    ;----------------------------------------------------------------------
+     112                    ;  58 | GPIO_PORTF_DIR_R = 0x0E;       // 5) make PF0 and PF4 in PF3-1 output
+     113                    ;     |                                                                        
+     114                    ;----------------------------------------------------------------------
+     115 0000002e 4923              LDR       A2, $C$CON8           ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     116 00000030 200E              MOVS      A1, #14               ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     117 00000032 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |58|  ; [ORIG 16-BIT INS]
+     118                            .dwpsn  file "../LED.c",line 59,column 3,is_stmt,isa 1
+     119                    ;----------------------------------------------------------------------
+     120                    ;  59 | GPIO_PORTF_AFSEL_R = 0;        // 6) disable alt funct on PF0 and PF4  
+     121                    ;----------------------------------------------------------------------
+     122 00000034 4922              LDR       A2, $C$CON9           ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     123 00000036 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     124 00000038 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |59|  ; [ORIG 16-BIT INS]
+     125                            .dwpsn  file "../LED.c",line 60,column 3,is_stmt,isa 1
+     126                    ;----------------------------------------------------------------------
+     127                    ;  60 | GPIO_PORTF_PUR_R = 0x11;       // enable weak pull-up on PF0 and PF4   
+     128                    ;----------------------------------------------------------------------
+     129 0000003a 4922              LDR       A2, $C$CON10          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     130 0000003c 2011              MOVS      A1, #17               ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     131 0000003e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |60|  ; [ORIG 16-BIT INS]
+     132                            .dwpsn  file "../LED.c",line 61,column 3,is_stmt,isa 1
+     133                    ;----------------------------------------------------------------------
+     134                    ;  61 | GPIO_PORTF_DEN_R = 0x1F;       // 7) enable digital I/O on PF0-PF4     
+     135                    ;----------------------------------------------------------------------
+     136 00000040 4921              LDR       A2, $C$CON11          ; [DPU_3_PIPE] |61|  ; [ORIG 16-BIT INS]
+     137 00000042 201F              MOVS      A1, #31               ; [DPU_3_PIPE] |61|  ; [ORIG 16-BIT INS]
+     138 00000044 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |61|  ; [ORIG 16-BIT INS]
+     139                            .dwpsn  file "../LED.c",line 62,column 1,is_stmt,isa 1
+     140                    $C$DW$2 .dwtag  DW_TAG_TI_branch
+     141                            .dwattr $C$DW$2, DW_AT_low_pc(0x00)
+     142                            .dwattr $C$DW$2, DW_AT_TI_return
+     143 00000046 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     144                            ; BRANCH OCCURS                  ; [] 
+     145                            .dwattr $C$DW$1, DW_AT_TI_end_file("../LED.c")
+     146                            .dwattr $C$DW$1, DW_AT_TI_end_line(0x3e)
+     147                            .dwattr $C$DW$1, DW_AT_TI_end_column(0x01)
+     148                            .dwendentry
+     149                            .dwendtag $C$DW$1
+     150                    
+     151 00000048                   .sect   ".text"
+     152                            .clink
+     153                            .thumbfunc Board_Input
+     154 00000048                   .thumb
+     155                            .global Board_Input
+     156                    
+     157                    $C$DW$3 .dwtag  DW_TAG_subprogram, DW_AT_name("Board_Input")
+     158                            .dwattr $C$DW$3, DW_AT_low_pc(Board_Input)
+     159                            .dwattr $C$DW$3, DW_AT_high_pc(0x00)
+     160                            .dwattr $C$DW$3, DW_AT_TI_symbol_name("Board_Input")
+     161                            .dwattr $C$DW$3, DW_AT_external
+     162                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$34)
+     163                            .dwattr $C$DW$3, DW_AT_TI_begin_file("../LED.c")
+     164                            .dwattr $C$DW$3, DW_AT_TI_begin_line(0x47)
+     165                            .dwattr $C$DW$3, DW_AT_TI_begin_column(0x0a)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    4
+
+     166                            .dwattr $C$DW$3, DW_AT_decl_file("../LED.c")
+     167                            .dwattr $C$DW$3, DW_AT_decl_line(0x47)
+     168                            .dwattr $C$DW$3, DW_AT_decl_column(0x0a)
+     169                            .dwattr $C$DW$3, DW_AT_TI_max_frame_size(0x00)
+     170                            .dwpsn  file "../LED.c",line 71,column 27,is_stmt,address Board_Input,isa 1
+     171                    
+     172                            .dwfde $C$DW$CIE, Board_Input
+     173                    ;----------------------------------------------------------------------
+     174                    ;  71 | uint32_t Board_Input(void){                                            
+     175                    ;----------------------------------------------------------------------
+     176                    
+     177                    ;*****************************************************************************
+     178                    ;* FUNCTION NAME: Board_Input                                                *
+     179                    ;*                                                                           *
+     180                    ;*   Regs Modified     : A1,A2,A3,SR                                         *
+     181                    ;*   Regs Used         : A1,A2,A3,LR,SR                                      *
+     182                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     183                    ;*****************************************************************************
+     184 00000048           Board_Input:
+     185                    ;* --------------------------------------------------------------------------*
+     186                            .dwcfi  cfa_offset, 0
+     187                            .dwpsn  file "../LED.c",line 72,column 3,is_stmt,isa 1
+     188                    ;----------------------------------------------------------------------
+     189                    ;  72 | return (~((PF4>>3)+PF0))&0x03;                                         
+     190                    ;----------------------------------------------------------------------
+     191 00000048 4921              LDR       A2, $C$CON13          ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     192 0000004a 4820              LDR       A1, $C$CON12          ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     193 0000004c 680A              LDR       A3, [A2, #0]          ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     194 0000004e 6801              LDR       A2, [A1, #0]          ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     195 00000050 2003              MOVS      A1, #3                ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     196 00000052 01D2EB01          ADD       A2, A2, A3, LSR #3    ; [DPU_3_PIPE] |72|  ; [KEEP 32-BIT INS]
+     197 00000056 4388              BICS      A1, A1, A2            ; [DPU_3_PIPE] |72|  ; [ORIG 16-BIT INS]
+     198                            .dwpsn  file "../LED.c",line 73,column 1,is_stmt,isa 1
+     199                    $C$DW$4 .dwtag  DW_TAG_TI_branch
+     200                            .dwattr $C$DW$4, DW_AT_low_pc(0x00)
+     201                            .dwattr $C$DW$4, DW_AT_TI_return
+     202 00000058 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     203                            ; BRANCH OCCURS                  ; [] 
+     204                            .dwattr $C$DW$3, DW_AT_TI_end_file("../LED.c")
+     205                            .dwattr $C$DW$3, DW_AT_TI_end_line(0x49)
+     206                            .dwattr $C$DW$3, DW_AT_TI_end_column(0x01)
+     207                            .dwendentry
+     208                            .dwendtag $C$DW$3
+     209                    
+     210 0000005a                   .sect   ".text"
+     211                            .clink
+     212                            .thumbfunc LED_RedOn
+     213 0000005a                   .thumb
+     214                            .global LED_RedOn
+     215                    
+     216                    $C$DW$5 .dwtag  DW_TAG_subprogram, DW_AT_name("LED_RedOn")
+     217                            .dwattr $C$DW$5, DW_AT_low_pc(LED_RedOn)
+     218                            .dwattr $C$DW$5, DW_AT_high_pc(0x00)
+     219                            .dwattr $C$DW$5, DW_AT_TI_symbol_name("LED_RedOn")
+     220                            .dwattr $C$DW$5, DW_AT_external
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    5
+
+     221                            .dwattr $C$DW$5, DW_AT_TI_begin_file("../LED.c")
+     222                            .dwattr $C$DW$5, DW_AT_TI_begin_line(0x4e)
+     223                            .dwattr $C$DW$5, DW_AT_TI_begin_column(0x06)
+     224                            .dwattr $C$DW$5, DW_AT_decl_file("../LED.c")
+     225                            .dwattr $C$DW$5, DW_AT_decl_line(0x4e)
+     226                            .dwattr $C$DW$5, DW_AT_decl_column(0x06)
+     227                            .dwattr $C$DW$5, DW_AT_TI_max_frame_size(0x00)
+     228                            .dwpsn  file "../LED.c",line 78,column 21,is_stmt,address LED_RedOn,isa 1
+     229                    
+     230                            .dwfde $C$DW$CIE, LED_RedOn
+     231                    ;----------------------------------------------------------------------
+     232                    ;  78 | void LED_RedOn(void){                                                  
+     233                    ;----------------------------------------------------------------------
+     234                    
+     235                    ;*****************************************************************************
+     236                    ;* FUNCTION NAME: LED_RedOn                                                  *
+     237                    ;*                                                                           *
+     238                    ;*   Regs Modified     : A1,A2,SR                                            *
+     239                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+     240                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     241                    ;*****************************************************************************
+     242 0000005a           LED_RedOn:
+     243                    ;* --------------------------------------------------------------------------*
+     244                            .dwcfi  cfa_offset, 0
+     245                            .dwpsn  file "../LED.c",line 79,column 3,is_stmt,isa 1
+     246                    ;----------------------------------------------------------------------
+     247                    ;  79 | PF1 = 0x02;                                                            
+     248                    ;----------------------------------------------------------------------
+     249 0000005a 491E              LDR       A2, $C$CON14          ; [DPU_3_PIPE] |79|  ; [ORIG 16-BIT INS]
+     250 0000005c 2002              MOVS      A1, #2                ; [DPU_3_PIPE] |79|  ; [ORIG 16-BIT INS]
+     251 0000005e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |79|  ; [ORIG 16-BIT INS]
+     252                            .dwpsn  file "../LED.c",line 80,column 1,is_stmt,isa 1
+     253                    $C$DW$6 .dwtag  DW_TAG_TI_branch
+     254                            .dwattr $C$DW$6, DW_AT_low_pc(0x00)
+     255                            .dwattr $C$DW$6, DW_AT_TI_return
+     256 00000060 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     257                            ; BRANCH OCCURS                  ; [] 
+     258                            .dwattr $C$DW$5, DW_AT_TI_end_file("../LED.c")
+     259                            .dwattr $C$DW$5, DW_AT_TI_end_line(0x50)
+     260                            .dwattr $C$DW$5, DW_AT_TI_end_column(0x01)
+     261                            .dwendentry
+     262                            .dwendtag $C$DW$5
+     263                    
+     264 00000062                   .sect   ".text"
+     265                            .clink
+     266                            .thumbfunc LED_RedOff
+     267 00000062                   .thumb
+     268                            .global LED_RedOff
+     269                    
+     270                    $C$DW$7 .dwtag  DW_TAG_subprogram, DW_AT_name("LED_RedOff")
+     271                            .dwattr $C$DW$7, DW_AT_low_pc(LED_RedOff)
+     272                            .dwattr $C$DW$7, DW_AT_high_pc(0x00)
+     273                            .dwattr $C$DW$7, DW_AT_TI_symbol_name("LED_RedOff")
+     274                            .dwattr $C$DW$7, DW_AT_external
+     275                            .dwattr $C$DW$7, DW_AT_TI_begin_file("../LED.c")
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    6
+
+     276                            .dwattr $C$DW$7, DW_AT_TI_begin_line(0x55)
+     277                            .dwattr $C$DW$7, DW_AT_TI_begin_column(0x06)
+     278                            .dwattr $C$DW$7, DW_AT_decl_file("../LED.c")
+     279                            .dwattr $C$DW$7, DW_AT_decl_line(0x55)
+     280                            .dwattr $C$DW$7, DW_AT_decl_column(0x06)
+     281                            .dwattr $C$DW$7, DW_AT_TI_max_frame_size(0x00)
+     282                            .dwpsn  file "../LED.c",line 85,column 22,is_stmt,address LED_RedOff,isa 1
+     283                    
+     284                            .dwfde $C$DW$CIE, LED_RedOff
+     285                    ;----------------------------------------------------------------------
+     286                    ;  85 | void LED_RedOff(void){                                                 
+     287                    ;----------------------------------------------------------------------
+     288                    
+     289                    ;*****************************************************************************
+     290                    ;* FUNCTION NAME: LED_RedOff                                                 *
+     291                    ;*                                                                           *
+     292                    ;*   Regs Modified     : A1,A2,SR                                            *
+     293                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+     294                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     295                    ;*****************************************************************************
+     296 00000062           LED_RedOff:
+     297                    ;* --------------------------------------------------------------------------*
+     298                            .dwcfi  cfa_offset, 0
+     299                            .dwpsn  file "../LED.c",line 86,column 3,is_stmt,isa 1
+     300                    ;----------------------------------------------------------------------
+     301                    ;  86 | PF1 = 0x00;                                                            
+     302                    ;----------------------------------------------------------------------
+     303 00000062 491C              LDR       A2, $C$CON14          ; [DPU_3_PIPE] |86|  ; [ORIG 16-BIT INS]
+     304 00000064 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |86|  ; [ORIG 16-BIT INS]
+     305 00000066 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |86|  ; [ORIG 16-BIT INS]
+     306                            .dwpsn  file "../LED.c",line 87,column 1,is_stmt,isa 1
+     307                    $C$DW$8 .dwtag  DW_TAG_TI_branch
+     308                            .dwattr $C$DW$8, DW_AT_low_pc(0x00)
+     309                            .dwattr $C$DW$8, DW_AT_TI_return
+     310 00000068 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     311                            ; BRANCH OCCURS                  ; [] 
+     312                            .dwattr $C$DW$7, DW_AT_TI_end_file("../LED.c")
+     313                            .dwattr $C$DW$7, DW_AT_TI_end_line(0x57)
+     314                            .dwattr $C$DW$7, DW_AT_TI_end_column(0x01)
+     315                            .dwendentry
+     316                            .dwendtag $C$DW$7
+     317                    
+     318 0000006a                   .sect   ".text"
+     319                            .clink
+     320                            .thumbfunc LED_RedToggle
+     321 0000006a                   .thumb
+     322                            .global LED_RedToggle
+     323                    
+     324                    $C$DW$9 .dwtag  DW_TAG_subprogram, DW_AT_name("LED_RedToggle")
+     325                            .dwattr $C$DW$9, DW_AT_low_pc(LED_RedToggle)
+     326                            .dwattr $C$DW$9, DW_AT_high_pc(0x00)
+     327                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("LED_RedToggle")
+     328                            .dwattr $C$DW$9, DW_AT_external
+     329                            .dwattr $C$DW$9, DW_AT_TI_begin_file("../LED.c")
+     330                            .dwattr $C$DW$9, DW_AT_TI_begin_line(0x5c)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    7
+
+     331                            .dwattr $C$DW$9, DW_AT_TI_begin_column(0x06)
+     332                            .dwattr $C$DW$9, DW_AT_decl_file("../LED.c")
+     333                            .dwattr $C$DW$9, DW_AT_decl_line(0x5c)
+     334                            .dwattr $C$DW$9, DW_AT_decl_column(0x06)
+     335                            .dwattr $C$DW$9, DW_AT_TI_max_frame_size(0x00)
+     336                            .dwpsn  file "../LED.c",line 92,column 25,is_stmt,address LED_RedToggle,isa 1
+     337                    
+     338                            .dwfde $C$DW$CIE, LED_RedToggle
+     339                    ;----------------------------------------------------------------------
+     340                    ;  92 | void LED_RedToggle(void){                                              
+     341                    ;----------------------------------------------------------------------
+     342                    
+     343                    ;*****************************************************************************
+     344                    ;* FUNCTION NAME: LED_RedToggle                                              *
+     345                    ;*                                                                           *
+     346                    ;*   Regs Modified     : A1,A2                                               *
+     347                    ;*   Regs Used         : A1,A2,LR                                            *
+     348                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     349                    ;*****************************************************************************
+     350 0000006a           LED_RedToggle:
+     351                    ;* --------------------------------------------------------------------------*
+     352                            .dwcfi  cfa_offset, 0
+     353                            .dwpsn  file "../LED.c",line 93,column 3,is_stmt,isa 1
+     354                    ;----------------------------------------------------------------------
+     355                    ;  93 | PF1 ^= 0x02;                                                           
+     356                    ;----------------------------------------------------------------------
+     357 0000006a 491A              LDR       A2, $C$CON14          ; [DPU_3_PIPE] |93|  ; [ORIG 16-BIT INS]
+     358 0000006c 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |93|  ; [ORIG 16-BIT INS]
+     359 0000006e 0002F080          EOR       A1, A1, #2            ; [DPU_3_PIPE] |93|  ; [KEEP 32-BIT INS]
+     360 00000072 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |93|  ; [ORIG 16-BIT INS]
+     361                            .dwpsn  file "../LED.c",line 94,column 1,is_stmt,isa 1
+     362                    $C$DW$10        .dwtag  DW_TAG_TI_branch
+     363                            .dwattr $C$DW$10, DW_AT_low_pc(0x00)
+     364                            .dwattr $C$DW$10, DW_AT_TI_return
+     365 00000074 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     366                            ; BRANCH OCCURS                  ; [] 
+     367                            .dwattr $C$DW$9, DW_AT_TI_end_file("../LED.c")
+     368                            .dwattr $C$DW$9, DW_AT_TI_end_line(0x5e)
+     369                            .dwattr $C$DW$9, DW_AT_TI_end_column(0x01)
+     370                            .dwendentry
+     371                            .dwendtag $C$DW$9
+     372                    
+     373 00000076                   .sect   ".text"
+     374                            .clink
+     375                            .thumbfunc LED_BlueToggle
+     376 00000076                   .thumb
+     377                            .global LED_BlueToggle
+     378                    
+     379                    $C$DW$11        .dwtag  DW_TAG_subprogram, DW_AT_name("LED_BlueToggle")
+     380                            .dwattr $C$DW$11, DW_AT_low_pc(LED_BlueToggle)
+     381                            .dwattr $C$DW$11, DW_AT_high_pc(0x00)
+     382                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("LED_BlueToggle")
+     383                            .dwattr $C$DW$11, DW_AT_external
+     384                            .dwattr $C$DW$11, DW_AT_TI_begin_file("../LED.c")
+     385                            .dwattr $C$DW$11, DW_AT_TI_begin_line(0x63)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    8
+
+     386                            .dwattr $C$DW$11, DW_AT_TI_begin_column(0x06)
+     387                            .dwattr $C$DW$11, DW_AT_decl_file("../LED.c")
+     388                            .dwattr $C$DW$11, DW_AT_decl_line(0x63)
+     389                            .dwattr $C$DW$11, DW_AT_decl_column(0x06)
+     390                            .dwattr $C$DW$11, DW_AT_TI_max_frame_size(0x00)
+     391                            .dwpsn  file "../LED.c",line 99,column 26,is_stmt,address LED_BlueToggle,isa 1
+     392                    
+     393                            .dwfde $C$DW$CIE, LED_BlueToggle
+     394                    ;----------------------------------------------------------------------
+     395                    ;  99 | void LED_BlueToggle(void){                                             
+     396                    ;----------------------------------------------------------------------
+     397                    
+     398                    ;*****************************************************************************
+     399                    ;* FUNCTION NAME: LED_BlueToggle                                             *
+     400                    ;*                                                                           *
+     401                    ;*   Regs Modified     : A1,A2                                               *
+     402                    ;*   Regs Used         : A1,A2,LR                                            *
+     403                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     404                    ;*****************************************************************************
+     405 00000076           LED_BlueToggle:
+     406                    ;* --------------------------------------------------------------------------*
+     407                            .dwcfi  cfa_offset, 0
+     408                            .dwpsn  file "../LED.c",line 100,column 3,is_stmt,isa 1
+     409                    ;----------------------------------------------------------------------
+     410                    ; 100 | PF2 ^= 0x04;                                                           
+     411                    ;----------------------------------------------------------------------
+     412 00000076 4918              LDR       A2, $C$CON15          ; [DPU_3_PIPE] |100|  ; [ORIG 16-BIT INS]
+     413 00000078 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |100|  ; [ORIG 16-BIT INS]
+     414 0000007a 0004F080          EOR       A1, A1, #4            ; [DPU_3_PIPE] |100|  ; [KEEP 32-BIT INS]
+     415 0000007e 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |100|  ; [ORIG 16-BIT INS]
+     416                            .dwpsn  file "../LED.c",line 101,column 1,is_stmt,isa 1
+     417                    $C$DW$12        .dwtag  DW_TAG_TI_branch
+     418                            .dwattr $C$DW$12, DW_AT_low_pc(0x00)
+     419                            .dwattr $C$DW$12, DW_AT_TI_return
+     420 00000080 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     421                            ; BRANCH OCCURS                  ; [] 
+     422                            .dwattr $C$DW$11, DW_AT_TI_end_file("../LED.c")
+     423                            .dwattr $C$DW$11, DW_AT_TI_end_line(0x65)
+     424                            .dwattr $C$DW$11, DW_AT_TI_end_column(0x01)
+     425                            .dwendentry
+     426                            .dwendtag $C$DW$11
+     427                    
+     428 00000082                   .sect   ".text"
+     429                            .clink
+     430                            .thumbfunc LED_GreenToggle
+     431 00000082                   .thumb
+     432                            .global LED_GreenToggle
+     433                    
+     434                    $C$DW$13        .dwtag  DW_TAG_subprogram, DW_AT_name("LED_GreenToggle")
+     435                            .dwattr $C$DW$13, DW_AT_low_pc(LED_GreenToggle)
+     436                            .dwattr $C$DW$13, DW_AT_high_pc(0x00)
+     437                            .dwattr $C$DW$13, DW_AT_TI_symbol_name("LED_GreenToggle")
+     438                            .dwattr $C$DW$13, DW_AT_external
+     439                            .dwattr $C$DW$13, DW_AT_TI_begin_file("../LED.c")
+     440                            .dwattr $C$DW$13, DW_AT_TI_begin_line(0x6a)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE    9
+
+     441                            .dwattr $C$DW$13, DW_AT_TI_begin_column(0x06)
+     442                            .dwattr $C$DW$13, DW_AT_decl_file("../LED.c")
+     443                            .dwattr $C$DW$13, DW_AT_decl_line(0x6a)
+     444                            .dwattr $C$DW$13, DW_AT_decl_column(0x06)
+     445                            .dwattr $C$DW$13, DW_AT_TI_max_frame_size(0x00)
+     446                            .dwpsn  file "../LED.c",line 106,column 27,is_stmt,address LED_GreenToggle,isa 1
+     447                    
+     448                            .dwfde $C$DW$CIE, LED_GreenToggle
+     449                    ;----------------------------------------------------------------------
+     450                    ; 106 | void LED_GreenToggle(void){                                            
+     451                    ;----------------------------------------------------------------------
+     452                    
+     453                    ;*****************************************************************************
+     454                    ;* FUNCTION NAME: LED_GreenToggle                                            *
+     455                    ;*                                                                           *
+     456                    ;*   Regs Modified     : A1,A2                                               *
+     457                    ;*   Regs Used         : A1,A2,LR                                            *
+     458                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     459                    ;*****************************************************************************
+     460 00000082           LED_GreenToggle:
+     461                    ;* --------------------------------------------------------------------------*
+     462                            .dwcfi  cfa_offset, 0
+     463                            .dwpsn  file "../LED.c",line 107,column 3,is_stmt,isa 1
+     464                    ;----------------------------------------------------------------------
+     465                    ; 107 | PF3 ^= 0x08;                                                           
+     466                    ;----------------------------------------------------------------------
+     467 00000082 4916              LDR       A2, $C$CON16          ; [DPU_3_PIPE] |107|  ; [ORIG 16-BIT INS]
+     468 00000084 6808              LDR       A1, [A2, #0]          ; [DPU_3_PIPE] |107|  ; [ORIG 16-BIT INS]
+     469 00000086 0008F080          EOR       A1, A1, #8            ; [DPU_3_PIPE] |107|  ; [KEEP 32-BIT INS]
+     470 0000008a 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |107|  ; [ORIG 16-BIT INS]
+     471                            .dwpsn  file "../LED.c",line 108,column 1,is_stmt,isa 1
+     472                    $C$DW$14        .dwtag  DW_TAG_TI_branch
+     473                            .dwattr $C$DW$14, DW_AT_low_pc(0x00)
+     474                            .dwattr $C$DW$14, DW_AT_TI_return
+     475 0000008c 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     476                            ; BRANCH OCCURS                  ; [] 
+     477                            .dwattr $C$DW$13, DW_AT_TI_end_file("../LED.c")
+     478                            .dwattr $C$DW$13, DW_AT_TI_end_line(0x6c)
+     479                            .dwattr $C$DW$13, DW_AT_TI_end_column(0x01)
+     480                            .dwendentry
+     481                            .dwendtag $C$DW$13
+     482                    
+     483 0000008e                   .sect   ".text"
+     484                            .clink
+     485                            .thumbfunc LED_GreenOn
+     486 0000008e                   .thumb
+     487                            .global LED_GreenOn
+     488                    
+     489                    $C$DW$15        .dwtag  DW_TAG_subprogram, DW_AT_name("LED_GreenOn")
+     490                            .dwattr $C$DW$15, DW_AT_low_pc(LED_GreenOn)
+     491                            .dwattr $C$DW$15, DW_AT_high_pc(0x00)
+     492                            .dwattr $C$DW$15, DW_AT_TI_symbol_name("LED_GreenOn")
+     493                            .dwattr $C$DW$15, DW_AT_external
+     494                            .dwattr $C$DW$15, DW_AT_TI_begin_file("../LED.c")
+     495                            .dwattr $C$DW$15, DW_AT_TI_begin_line(0x71)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   10
+
+     496                            .dwattr $C$DW$15, DW_AT_TI_begin_column(0x06)
+     497                            .dwattr $C$DW$15, DW_AT_decl_file("../LED.c")
+     498                            .dwattr $C$DW$15, DW_AT_decl_line(0x71)
+     499                            .dwattr $C$DW$15, DW_AT_decl_column(0x06)
+     500                            .dwattr $C$DW$15, DW_AT_TI_max_frame_size(0x00)
+     501                            .dwpsn  file "../LED.c",line 113,column 23,is_stmt,address LED_GreenOn,isa 1
+     502                    
+     503                            .dwfde $C$DW$CIE, LED_GreenOn
+     504                    ;----------------------------------------------------------------------
+     505                    ; 113 | void LED_GreenOn(void){                                                
+     506                    ;----------------------------------------------------------------------
+     507                    
+     508                    ;*****************************************************************************
+     509                    ;* FUNCTION NAME: LED_GreenOn                                                *
+     510                    ;*                                                                           *
+     511                    ;*   Regs Modified     : A1,A2,SR                                            *
+     512                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+     513                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     514                    ;*****************************************************************************
+     515 0000008e           LED_GreenOn:
+     516                    ;* --------------------------------------------------------------------------*
+     517                            .dwcfi  cfa_offset, 0
+     518                            .dwpsn  file "../LED.c",line 114,column 3,is_stmt,isa 1
+     519                    ;----------------------------------------------------------------------
+     520                    ; 114 | PF3 = 0x08;                                                            
+     521                    ;----------------------------------------------------------------------
+     522 0000008e 4913              LDR       A2, $C$CON16          ; [DPU_3_PIPE] |114|  ; [ORIG 16-BIT INS]
+     523 00000090 2008              MOVS      A1, #8                ; [DPU_3_PIPE] |114|  ; [ORIG 16-BIT INS]
+     524 00000092 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |114|  ; [ORIG 16-BIT INS]
+     525                            .dwpsn  file "../LED.c",line 115,column 1,is_stmt,isa 1
+     526                    $C$DW$16        .dwtag  DW_TAG_TI_branch
+     527                            .dwattr $C$DW$16, DW_AT_low_pc(0x00)
+     528                            .dwattr $C$DW$16, DW_AT_TI_return
+     529 00000094 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     530                            ; BRANCH OCCURS                  ; [] 
+     531                            .dwattr $C$DW$15, DW_AT_TI_end_file("../LED.c")
+     532                            .dwattr $C$DW$15, DW_AT_TI_end_line(0x73)
+     533                            .dwattr $C$DW$15, DW_AT_TI_end_column(0x01)
+     534                            .dwendentry
+     535                            .dwendtag $C$DW$15
+     536                    
+     537 00000096                   .sect   ".text"
+     538                            .clink
+     539                            .thumbfunc LED_GreenOff
+     540 00000096                   .thumb
+     541                            .global LED_GreenOff
+     542                    
+     543                    $C$DW$17        .dwtag  DW_TAG_subprogram, DW_AT_name("LED_GreenOff")
+     544                            .dwattr $C$DW$17, DW_AT_low_pc(LED_GreenOff)
+     545                            .dwattr $C$DW$17, DW_AT_high_pc(0x00)
+     546                            .dwattr $C$DW$17, DW_AT_TI_symbol_name("LED_GreenOff")
+     547                            .dwattr $C$DW$17, DW_AT_external
+     548                            .dwattr $C$DW$17, DW_AT_TI_begin_file("../LED.c")
+     549                            .dwattr $C$DW$17, DW_AT_TI_begin_line(0x78)
+     550                            .dwattr $C$DW$17, DW_AT_TI_begin_column(0x06)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   11
+
+     551                            .dwattr $C$DW$17, DW_AT_decl_file("../LED.c")
+     552                            .dwattr $C$DW$17, DW_AT_decl_line(0x78)
+     553                            .dwattr $C$DW$17, DW_AT_decl_column(0x06)
+     554                            .dwattr $C$DW$17, DW_AT_TI_max_frame_size(0x00)
+     555                            .dwpsn  file "../LED.c",line 120,column 24,is_stmt,address LED_GreenOff,isa 1
+     556                    
+     557                            .dwfde $C$DW$CIE, LED_GreenOff
+     558                    ;----------------------------------------------------------------------
+     559                    ; 120 | void LED_GreenOff(void){                                               
+     560                    ;----------------------------------------------------------------------
+     561                    
+     562                    ;*****************************************************************************
+     563                    ;* FUNCTION NAME: LED_GreenOff                                               *
+     564                    ;*                                                                           *
+     565                    ;*   Regs Modified     : A1,A2,SR                                            *
+     566                    ;*   Regs Used         : A1,A2,LR,SR                                         *
+     567                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     568                    ;*****************************************************************************
+     569 00000096           LED_GreenOff:
+     570                    ;* --------------------------------------------------------------------------*
+     571                            .dwcfi  cfa_offset, 0
+     572                            .dwpsn  file "../LED.c",line 121,column 3,is_stmt,isa 1
+     573                    ;----------------------------------------------------------------------
+     574                    ; 121 | PF3 = 0x00;                                                            
+     575                    ;----------------------------------------------------------------------
+     576 00000096 4911              LDR       A2, $C$CON16          ; [DPU_3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     577 00000098 2000              MOVS      A1, #0                ; [DPU_3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     578 0000009a 6008              STR       A1, [A2, #0]          ; [DPU_3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     579                            .dwpsn  file "../LED.c",line 122,column 1,is_stmt,isa 1
+     580                    $C$DW$18        .dwtag  DW_TAG_TI_branch
+     581                            .dwattr $C$DW$18, DW_AT_low_pc(0x00)
+     582                            .dwattr $C$DW$18, DW_AT_TI_return
+     583 0000009c 4770              BX        LR                    ; [DPU_3_PIPE]  ; [ORIG 16-BIT INS]
+     584                            ; BRANCH OCCURS                  ; [] 
+     585                            .dwattr $C$DW$17, DW_AT_TI_end_file("../LED.c")
+     586                            .dwattr $C$DW$17, DW_AT_TI_end_line(0x7a)
+     587                            .dwattr $C$DW$17, DW_AT_TI_end_column(0x01)
+     588                            .dwendentry
+     589                            .dwendtag $C$DW$17
+     590                    
+     591                    ;******************************************************************************
+     592                    ;* CONSTANT TABLE                                                             *
+     593                    ;******************************************************************************
+     594 0000009e                   .sect   ".text"
+     595                            .align  4
+     596 0000009e E60846C0  ||$C$CON1||:    .bits   1074783752,32
+         000000a2 0000400F 
+     597                            .align  4
+     598 000000a2 EA08400F  ||$C$CON2||:    .bits   1074784776,32
+         000000a6 0000400F 
+     599                            .align  4
+     600 000000a6 5520400F  ||$C$CON3||:    .bits   1073894688,32
+         000000aa 00004002 
+     601                            .align  4
+     602 000000aa 434B4002  ||$C$CON4||:    .bits   1280262987,32
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   12
+
+         000000ae 00004C4F 
+     603                            .align  4
+     604 000000ae 55244C4F  ||$C$CON5||:    .bits   1073894692,32
+         000000b2 00004002 
+     605                            .align  4
+     606 000000b2 55284002  ||$C$CON6||:    .bits   1073894696,32
+         000000b6 00004002 
+     607                            .align  4
+     608 000000b6 552C4002  ||$C$CON7||:    .bits   1073894700,32
+         000000ba 00004002 
+     609                            .align  4
+     610 000000ba 54004002  ||$C$CON8||:    .bits   1073894400,32
+         000000be 00004002 
+     611                            .align  4
+     612 000000be 54204002  ||$C$CON9||:    .bits   1073894432,32
+         000000c2 00004002 
+     613                            .align  4
+     614 000000c2 55104002  ||$C$CON10||:   .bits   1073894672,32
+         000000c6 00004002 
+     615                            .align  4
+     616 000000c6 551C4002  ||$C$CON11||:   .bits   1073894684,32
+         000000ca 00004002 
+     617                            .align  4
+     618 000000ca 50044002  ||$C$CON12||:   .bits   1073893380,32
+         000000ce 00004002 
+     619                            .align  4
+     620 000000ce 50404002  ||$C$CON13||:   .bits   1073893440,32
+         000000d2 00004002 
+     621                            .align  4
+     622 000000d2 50084002  ||$C$CON14||:   .bits   1073893384,32
+         000000d6 00004002 
+     623                            .align  4
+     624 000000d6 50104002  ||$C$CON15||:   .bits   1073893392,32
+         000000da 00004002 
+     625                            .align  4
+     626 000000da 50204002  ||$C$CON16||:   .bits   1073893408,32
+         000000de 00004002 
+     627                    
+     628                    ;******************************************************************************
+     629                    ;* BUILD ATTRIBUTES                                                           *
+     630                    ;******************************************************************************
+     631                            .battr "aeabi", Tag_File, 1, Tag_ABI_PCS_wchar_t(2)
+     632                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_rounding(0)
+     633                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_denormal(0)
+     634                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_exceptions(0)
+     635                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_number_model(1)
+     636                            .battr "aeabi", Tag_File, 1, Tag_ABI_enum_size(0)
+     637                            .battr "aeabi", Tag_File, 1, Tag_ABI_optimization_goals(5)
+     638                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_optimization_goals(0)
+     639                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+     640                            .battr "TI", Tag_File, 1, Tag_FP_interface(1)
+     641                    
+     642                    ;******************************************************************************
+     643                    ;* TYPE INFORMATION                                                           *
+     644                    ;******************************************************************************
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   13
+
+     645                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+     646                            .dwattr $C$DW$T$2, DW_AT_name("void")
+     647                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+     648                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+     649                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+     650                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+     651                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+     652                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+     653                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+     654                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+     655                    $C$DW$T$20      .dwtag  DW_TAG_typedef, DW_AT_name("int8_t")
+     656                            .dwattr $C$DW$T$20, DW_AT_type(*$C$DW$T$5)
+     657                            .dwattr $C$DW$T$20, DW_AT_language(DW_LANG_C)
+     658                            .dwattr $C$DW$T$20, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     659                            .dwattr $C$DW$T$20, DW_AT_decl_line(0x2a)
+     660                            .dwattr $C$DW$T$20, DW_AT_decl_column(0x1d)
+     661                    $C$DW$T$21      .dwtag  DW_TAG_typedef, DW_AT_name("int_least8_t")
+     662                            .dwattr $C$DW$T$21, DW_AT_type(*$C$DW$T$20)
+     663                            .dwattr $C$DW$T$21, DW_AT_language(DW_LANG_C)
+     664                            .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     665                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x37)
+     666                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x17)
+     667                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+     668                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+     669                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+     670                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+     671                    $C$DW$T$22      .dwtag  DW_TAG_typedef, DW_AT_name("uint8_t")
+     672                            .dwattr $C$DW$T$22, DW_AT_type(*$C$DW$T$6)
+     673                            .dwattr $C$DW$T$22, DW_AT_language(DW_LANG_C)
+     674                            .dwattr $C$DW$T$22, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     675                            .dwattr $C$DW$T$22, DW_AT_decl_line(0x2b)
+     676                            .dwattr $C$DW$T$22, DW_AT_decl_column(0x1c)
+     677                    $C$DW$T$23      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least8_t")
+     678                            .dwattr $C$DW$T$23, DW_AT_type(*$C$DW$T$22)
+     679                            .dwattr $C$DW$T$23, DW_AT_language(DW_LANG_C)
+     680                            .dwattr $C$DW$T$23, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     681                            .dwattr $C$DW$T$23, DW_AT_decl_line(0x38)
+     682                            .dwattr $C$DW$T$23, DW_AT_decl_column(0x16)
+     683                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+     684                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+     685                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+     686                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+     687                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+     688                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+     689                            .dwattr $C$DW$T$8, DW_AT_name("short")
+     690                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+     691                    $C$DW$T$24      .dwtag  DW_TAG_typedef, DW_AT_name("int16_t")
+     692                            .dwattr $C$DW$T$24, DW_AT_type(*$C$DW$T$8)
+     693                            .dwattr $C$DW$T$24, DW_AT_language(DW_LANG_C)
+     694                            .dwattr $C$DW$T$24, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     695                            .dwattr $C$DW$T$24, DW_AT_decl_line(0x2c)
+     696                            .dwattr $C$DW$T$24, DW_AT_decl_column(0x1d)
+     697                    $C$DW$T$25      .dwtag  DW_TAG_typedef, DW_AT_name("int_least16_t")
+     698                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$24)
+     699                            .dwattr $C$DW$T$25, DW_AT_language(DW_LANG_C)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   14
+
+     700                            .dwattr $C$DW$T$25, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     701                            .dwattr $C$DW$T$25, DW_AT_decl_line(0x3a)
+     702                            .dwattr $C$DW$T$25, DW_AT_decl_column(0x17)
+     703                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+     704                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+     705                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+     706                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+     707                    $C$DW$T$26      .dwtag  DW_TAG_typedef, DW_AT_name("uint16_t")
+     708                            .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$9)
+     709                            .dwattr $C$DW$T$26, DW_AT_language(DW_LANG_C)
+     710                            .dwattr $C$DW$T$26, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     711                            .dwattr $C$DW$T$26, DW_AT_decl_line(0x2d)
+     712                            .dwattr $C$DW$T$26, DW_AT_decl_column(0x1c)
+     713                    $C$DW$T$27      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least16_t")
+     714                            .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$26)
+     715                            .dwattr $C$DW$T$27, DW_AT_language(DW_LANG_C)
+     716                            .dwattr $C$DW$T$27, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     717                            .dwattr $C$DW$T$27, DW_AT_decl_line(0x3b)
+     718                            .dwattr $C$DW$T$27, DW_AT_decl_column(0x16)
+     719                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+     720                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+     721                            .dwattr $C$DW$T$10, DW_AT_name("int")
+     722                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+     723                    $C$DW$T$28      .dwtag  DW_TAG_typedef, DW_AT_name("int32_t")
+     724                            .dwattr $C$DW$T$28, DW_AT_type(*$C$DW$T$10)
+     725                            .dwattr $C$DW$T$28, DW_AT_language(DW_LANG_C)
+     726                            .dwattr $C$DW$T$28, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     727                            .dwattr $C$DW$T$28, DW_AT_decl_line(0x2e)
+     728                            .dwattr $C$DW$T$28, DW_AT_decl_column(0x1d)
+     729                    $C$DW$T$29      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast16_t")
+     730                            .dwattr $C$DW$T$29, DW_AT_type(*$C$DW$T$28)
+     731                            .dwattr $C$DW$T$29, DW_AT_language(DW_LANG_C)
+     732                            .dwattr $C$DW$T$29, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     733                            .dwattr $C$DW$T$29, DW_AT_decl_line(0x47)
+     734                            .dwattr $C$DW$T$29, DW_AT_decl_column(0x17)
+     735                    $C$DW$T$30      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast32_t")
+     736                            .dwattr $C$DW$T$30, DW_AT_type(*$C$DW$T$28)
+     737                            .dwattr $C$DW$T$30, DW_AT_language(DW_LANG_C)
+     738                            .dwattr $C$DW$T$30, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     739                            .dwattr $C$DW$T$30, DW_AT_decl_line(0x4a)
+     740                            .dwattr $C$DW$T$30, DW_AT_decl_column(0x17)
+     741                    $C$DW$T$31      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast8_t")
+     742                            .dwattr $C$DW$T$31, DW_AT_type(*$C$DW$T$28)
+     743                            .dwattr $C$DW$T$31, DW_AT_language(DW_LANG_C)
+     744                            .dwattr $C$DW$T$31, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     745                            .dwattr $C$DW$T$31, DW_AT_decl_line(0x45)
+     746                            .dwattr $C$DW$T$31, DW_AT_decl_column(0x17)
+     747                    $C$DW$T$32      .dwtag  DW_TAG_typedef, DW_AT_name("int_least32_t")
+     748                            .dwattr $C$DW$T$32, DW_AT_type(*$C$DW$T$28)
+     749                            .dwattr $C$DW$T$32, DW_AT_language(DW_LANG_C)
+     750                            .dwattr $C$DW$T$32, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     751                            .dwattr $C$DW$T$32, DW_AT_decl_line(0x3c)
+     752                            .dwattr $C$DW$T$32, DW_AT_decl_column(0x17)
+     753                    $C$DW$T$33      .dwtag  DW_TAG_typedef, DW_AT_name("intptr_t")
+     754                            .dwattr $C$DW$T$33, DW_AT_type(*$C$DW$T$10)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   15
+
+     755                            .dwattr $C$DW$T$33, DW_AT_language(DW_LANG_C)
+     756                            .dwattr $C$DW$T$33, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     757                            .dwattr $C$DW$T$33, DW_AT_decl_line(0x52)
+     758                            .dwattr $C$DW$T$33, DW_AT_decl_column(0x1a)
+     759                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+     760                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+     761                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+     762                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+     763                    $C$DW$T$34      .dwtag  DW_TAG_typedef, DW_AT_name("uint32_t")
+     764                            .dwattr $C$DW$T$34, DW_AT_type(*$C$DW$T$11)
+     765                            .dwattr $C$DW$T$34, DW_AT_language(DW_LANG_C)
+     766                            .dwattr $C$DW$T$34, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     767                            .dwattr $C$DW$T$34, DW_AT_decl_line(0x2f)
+     768                            .dwattr $C$DW$T$34, DW_AT_decl_column(0x1c)
+     769                    $C$DW$T$38      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast16_t")
+     770                            .dwattr $C$DW$T$38, DW_AT_type(*$C$DW$T$34)
+     771                            .dwattr $C$DW$T$38, DW_AT_language(DW_LANG_C)
+     772                            .dwattr $C$DW$T$38, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     773                            .dwattr $C$DW$T$38, DW_AT_decl_line(0x48)
+     774                            .dwattr $C$DW$T$38, DW_AT_decl_column(0x16)
+     775                    $C$DW$T$39      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast32_t")
+     776                            .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$34)
+     777                            .dwattr $C$DW$T$39, DW_AT_language(DW_LANG_C)
+     778                            .dwattr $C$DW$T$39, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     779                            .dwattr $C$DW$T$39, DW_AT_decl_line(0x4b)
+     780                            .dwattr $C$DW$T$39, DW_AT_decl_column(0x16)
+     781                    $C$DW$T$40      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast8_t")
+     782                            .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$34)
+     783                            .dwattr $C$DW$T$40, DW_AT_language(DW_LANG_C)
+     784                            .dwattr $C$DW$T$40, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     785                            .dwattr $C$DW$T$40, DW_AT_decl_line(0x46)
+     786                            .dwattr $C$DW$T$40, DW_AT_decl_column(0x16)
+     787                    $C$DW$T$41      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least32_t")
+     788                            .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$34)
+     789                            .dwattr $C$DW$T$41, DW_AT_language(DW_LANG_C)
+     790                            .dwattr $C$DW$T$41, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     791                            .dwattr $C$DW$T$41, DW_AT_decl_line(0x3d)
+     792                            .dwattr $C$DW$T$41, DW_AT_decl_column(0x16)
+     793                    $C$DW$T$42      .dwtag  DW_TAG_typedef, DW_AT_name("uintptr_t")
+     794                            .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$11)
+     795                            .dwattr $C$DW$T$42, DW_AT_language(DW_LANG_C)
+     796                            .dwattr $C$DW$T$42, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     797                            .dwattr $C$DW$T$42, DW_AT_decl_line(0x53)
+     798                            .dwattr $C$DW$T$42, DW_AT_decl_column(0x1a)
+     799                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+     800                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+     801                            .dwattr $C$DW$T$12, DW_AT_name("long")
+     802                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x04)
+     803                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+     804                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+     805                            .dwattr $C$DW$T$13, DW_AT_name("unsigned long")
+     806                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x04)
+     807                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+     808                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+     809                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   16
+
+     810                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+     811                    $C$DW$T$43      .dwtag  DW_TAG_typedef, DW_AT_name("int64_t")
+     812                            .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$14)
+     813                            .dwattr $C$DW$T$43, DW_AT_language(DW_LANG_C)
+     814                            .dwattr $C$DW$T$43, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     815                            .dwattr $C$DW$T$43, DW_AT_decl_line(0x32)
+     816                            .dwattr $C$DW$T$43, DW_AT_decl_column(0x21)
+     817                    $C$DW$T$44      .dwtag  DW_TAG_typedef, DW_AT_name("int_fast64_t")
+     818                            .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$43)
+     819                            .dwattr $C$DW$T$44, DW_AT_language(DW_LANG_C)
+     820                            .dwattr $C$DW$T$44, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     821                            .dwattr $C$DW$T$44, DW_AT_decl_line(0x4e)
+     822                            .dwattr $C$DW$T$44, DW_AT_decl_column(0x17)
+     823                    $C$DW$T$45      .dwtag  DW_TAG_typedef, DW_AT_name("int_least64_t")
+     824                            .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$43)
+     825                            .dwattr $C$DW$T$45, DW_AT_language(DW_LANG_C)
+     826                            .dwattr $C$DW$T$45, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     827                            .dwattr $C$DW$T$45, DW_AT_decl_line(0x40)
+     828                            .dwattr $C$DW$T$45, DW_AT_decl_column(0x17)
+     829                    $C$DW$T$46      .dwtag  DW_TAG_typedef, DW_AT_name("intmax_t")
+     830                            .dwattr $C$DW$T$46, DW_AT_type(*$C$DW$T$14)
+     831                            .dwattr $C$DW$T$46, DW_AT_language(DW_LANG_C)
+     832                            .dwattr $C$DW$T$46, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     833                            .dwattr $C$DW$T$46, DW_AT_decl_line(0x56)
+     834                            .dwattr $C$DW$T$46, DW_AT_decl_column(0x20)
+     835                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+     836                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+     837                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+     838                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+     839                    $C$DW$T$47      .dwtag  DW_TAG_typedef, DW_AT_name("uint64_t")
+     840                            .dwattr $C$DW$T$47, DW_AT_type(*$C$DW$T$15)
+     841                            .dwattr $C$DW$T$47, DW_AT_language(DW_LANG_C)
+     842                            .dwattr $C$DW$T$47, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     843                            .dwattr $C$DW$T$47, DW_AT_decl_line(0x33)
+     844                            .dwattr $C$DW$T$47, DW_AT_decl_column(0x20)
+     845                    $C$DW$T$48      .dwtag  DW_TAG_typedef, DW_AT_name("uint_fast64_t")
+     846                            .dwattr $C$DW$T$48, DW_AT_type(*$C$DW$T$47)
+     847                            .dwattr $C$DW$T$48, DW_AT_language(DW_LANG_C)
+     848                            .dwattr $C$DW$T$48, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     849                            .dwattr $C$DW$T$48, DW_AT_decl_line(0x4f)
+     850                            .dwattr $C$DW$T$48, DW_AT_decl_column(0x16)
+     851                    $C$DW$T$49      .dwtag  DW_TAG_typedef, DW_AT_name("uint_least64_t")
+     852                            .dwattr $C$DW$T$49, DW_AT_type(*$C$DW$T$47)
+     853                            .dwattr $C$DW$T$49, DW_AT_language(DW_LANG_C)
+     854                            .dwattr $C$DW$T$49, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     855                            .dwattr $C$DW$T$49, DW_AT_decl_line(0x41)
+     856                            .dwattr $C$DW$T$49, DW_AT_decl_column(0x16)
+     857                    $C$DW$T$50      .dwtag  DW_TAG_typedef, DW_AT_name("uintmax_t")
+     858                            .dwattr $C$DW$T$50, DW_AT_type(*$C$DW$T$15)
+     859                            .dwattr $C$DW$T$50, DW_AT_language(DW_LANG_C)
+     860                            .dwattr $C$DW$T$50, DW_AT_decl_file("C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.4/include/stdin
+     861                            .dwattr $C$DW$T$50, DW_AT_decl_line(0x57)
+     862                            .dwattr $C$DW$T$50, DW_AT_decl_column(0x20)
+     863                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+     864                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   17
+
+     865                            .dwattr $C$DW$T$16, DW_AT_name("float")
+     866                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+     867                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+     868                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+     869                            .dwattr $C$DW$T$17, DW_AT_name("double")
+     870                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+     871                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+     872                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+     873                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+     874                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+     875                    $C$DW$T$52      .dwtag  DW_TAG_pointer_type
+     876                            .dwattr $C$DW$T$52, DW_AT_type(*$C$DW$T$6)
+     877                            .dwattr $C$DW$T$52, DW_AT_address_class(0x20)
+     878                    $C$DW$T$53      .dwtag  DW_TAG_typedef, DW_AT_name("__builtin_va_list")
+     879                            .dwattr $C$DW$T$53, DW_AT_type(*$C$DW$T$52)
+     880                            .dwattr $C$DW$T$53, DW_AT_language(DW_LANG_C)
+     881                            .dwattr $C$DW$T$53, DW_AT_decl_file("../LED.c")
+     882                            .dwattr $C$DW$T$53, DW_AT_decl_line(0x7a)
+     883                            .dwattr $C$DW$T$53, DW_AT_decl_column(0x01)
+     884                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+     885                    
+     886                    ;***************************************************************
+     887                    ;* DWARF CIE ENTRIES                                           *
+     888                    ;***************************************************************
+     889                    
+     890                    $C$DW$CIE       .dwcie 14
+     891                            .dwcfi  cfa_register, 13
+     892                            .dwcfi  cfa_offset, 0
+     893                            .dwcfi  undefined, 0
+     894                            .dwcfi  undefined, 1
+     895                            .dwcfi  undefined, 2
+     896                            .dwcfi  undefined, 3
+     897                            .dwcfi  same_value, 4
+     898                            .dwcfi  same_value, 5
+     899                            .dwcfi  same_value, 6
+     900                            .dwcfi  same_value, 7
+     901                            .dwcfi  same_value, 8
+     902                            .dwcfi  same_value, 9
+     903                            .dwcfi  same_value, 10
+     904                            .dwcfi  same_value, 11
+     905                            .dwcfi  undefined, 12
+     906                            .dwcfi  undefined, 13
+     907                            .dwcfi  undefined, 14
+     908                            .dwcfi  undefined, 14
+     909                            .dwcfi  undefined, 7
+     910                            .dwcfi  undefined, 64
+     911                            .dwcfi  undefined, 65
+     912                            .dwcfi  undefined, 66
+     913                            .dwcfi  undefined, 67
+     914                            .dwcfi  undefined, 68
+     915                            .dwcfi  undefined, 69
+     916                            .dwcfi  undefined, 70
+     917                            .dwcfi  undefined, 71
+     918                            .dwcfi  undefined, 72
+     919                            .dwcfi  undefined, 73
+TI ARM Assembler PC v5.2.4 Thu Sep 17 23:20:48 2015
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+LED.asm                                                              PAGE   18
+
+     920                            .dwcfi  undefined, 74
+     921                            .dwcfi  undefined, 75
+     922                            .dwcfi  undefined, 76
+     923                            .dwcfi  undefined, 77
+     924                            .dwcfi  undefined, 78
+     925                            .dwcfi  undefined, 79
+     926                            .dwcfi  same_value, 80
+     927                            .dwcfi  same_value, 81
+     928                            .dwcfi  same_value, 82
+     929                            .dwcfi  same_value, 83
+     930                            .dwcfi  same_value, 84
+     931                            .dwcfi  same_value, 85
+     932                            .dwcfi  same_value, 86
+     933                            .dwcfi  same_value, 87
+     934                            .dwcfi  same_value, 88
+     935                            .dwcfi  same_value, 89
+     936                            .dwcfi  same_value, 90
+     937                            .dwcfi  same_value, 91
+     938                            .dwcfi  same_value, 92
+     939                            .dwcfi  same_value, 93
+     940                            .dwcfi  same_value, 94
+     941                            .dwcfi  same_value, 95
+     942                            .dwendentry
+     943                            .dwendtag $C$DW$CU
+     944                    
+
+--------------------------
+Thumb2 Statistics
+--------------------------
+Number of Thumb2 ins converted to Thumb = 0 (0%)
+Number of Thumb ins in input = 67 (91%)
+Number of Thumb2 ins encoded as Thumb2 = 6 (100%)
+Number of Thumb2 ins converted to 2 OPND Thumb = 1
+
+
+No Assembly Errors, No Assembly Warnings
