@@ -20,3 +20,6 @@
 *.bak
 *.d
 *.cmd
+*.axf
+*.map
+*.dep

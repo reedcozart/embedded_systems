@@ -537,6 +537,8 @@ void Delay1ms(uint32_t n){uint32_t volatile time;
   }
 }
 
+//hello i'm a comment!
+
 // Rather than a bazillion writecommand() and writedata() calls, screen
 // initialization commands and arguments are organized in these tables
 // stored in ROM.  The table may look bulky, but that's mostly the

@@ -1,17 +1,0 @@
-Dependencies for Project 'ST7735', Target 'ST7735': (DO NOT MODIFY !)
-F (.\startup.s)(0x56B8D128)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\PLL.c)(0x56B8D128)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\.. --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C89844)
-I (PLL.h)(0x56B8D128)
-I (../inc/tm4c123gh6pm.h)(0x56B8D11F)
-F (.\ST7735.c)(0x56B8D128)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\.. --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\st7735.o --omf_browse .\st7735.crf --depend .\st7735.d)
-I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C89844)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C89844)
-I (ST7735.h)(0x56B8D128)
-I (../inc/tm4c123gh6pm.h)(0x56B8D11F)
-F (.\ST7735TestMain.c)(0x56B8D128)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\.. --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\st7735testmain.o --omf_browse .\st7735testmain.crf --depend .\st7735testmain.d)
-I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C89844)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C89844)
-I (ST7735.h)(0x56B8D128)
-I (PLL.h)(0x56B8D128)
-I (../inc/tm4c123gh6pm.h)(0x56B8D11F)
