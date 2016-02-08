@@ -538,6 +538,7 @@ void Delay1ms(uint32_t n){uint32_t volatile time;
 }
 
 //hello i'm a comment!
+//Hello i'm another comment!
 
 // Rather than a bazillion writecommand() and writedata() calls, screen
 // initialization commands and arguments are organized in these tables

@@ -5,7 +5,6 @@
 *.docx
 *.txt
 *.exe
-*.s
 *.cpp
 *.bmp
 *.iex
@@ -21,5 +20,7 @@
 *.d
 *.cmd
 *.axf
+
 *.map
+
 *.dep
