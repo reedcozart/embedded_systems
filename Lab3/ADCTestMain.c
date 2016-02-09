@@ -54,6 +54,9 @@ uint8_t set_time = 0;
 uint8_t alarm_mode = 0;
 uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog
 
+uint8_t alarm_hours = 0; // global variables where the time for alarm is stored.
+uint8_t alarm_minutes = 0;
+uint8_t alarm_seconds = 0;
 
 int main(void){
 	
@@ -71,6 +74,9 @@ int main(void){
   while(1){
     if(refresh){
 			Refresh_Screen();
+		}
+		if(alarm_hours == hours && alarm_minutes == minutes && alarm_seconds == seconds){
+			Sound_Alarm();
 		}
 	}
 }
