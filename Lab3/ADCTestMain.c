@@ -211,5 +211,6 @@ void PortF_Init(void){
 void GPIOPortF_Handler(void){
 	GPIO_PORTF_ICR_R = 0x10;      // acknowledge flag4
 	alarm_mode^=1;
+	refresh = 1;
 }
 
