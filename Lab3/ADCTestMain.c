@@ -41,6 +41,7 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 void PortF_Init(void);
+void Refresh_Screen(void);
 
 
 uint8_t hours;
@@ -49,6 +50,7 @@ uint8_t seconds;
 uint8_t refresh = 0;
 uint8_t set_time = 0;
 uint8_t alarm_mode = 0;
+uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog
 
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
@@ -114,8 +116,8 @@ void Timer0A_Handler(void){
 }
 int main(void){
 	int return_val;
-	char time_str[8] = {'0','0',':','0','0',':','0','0'};
-	int i;
+	
+	
 	
   PLL_Init(Bus80MHz);                   // 80 MHz
  
@@ -126,31 +128,13 @@ int main(void){
 	Timer2_Init1Hz();
 	PortF_Init();
 	
-	
-	//PF2 = 0;                      // turn off LED
-	
   EnableInterrupts();
 
   while(1){
     if(refresh){
-			for(i=0; i<8; i++){
-				time_str[0] = (char) hours/10 + 0x30;
-				time_str[1] = (char) hours%10 + 0x30;
-				time_str[3] = (char) minutes/10 + 0x30;
-				time_str[4] = (char) minutes%10 + 0x30;
-				time_str[6] = (char) seconds/10 + 0x30;
-				time_str[7] = (char) seconds%10 + 0x30;
-				return_val = ST7735_DrawString(0,0, time_str, ST7735_YELLOW);
-			}
-			if(alarm_mode){
-					ST7735_DrawString(0,15, "ALARM ON ", ST7735_GREEN);
-			}else{
-					ST7735_DrawString(0,15, "ALARM OFF", ST7735_RED);
-			}
-			refresh = 0;
+			Refresh_Screen();
 		}
-		
-  }
+	}
 }
 
 void Timer1_Init(void){
@@ -213,4 +197,26 @@ void GPIOPortF_Handler(void){
 	alarm_mode^=1;
 	refresh = 1;
 }
+
+void Refresh_Screen(void){
+	int i;
+	char time_str[8] = {'0','0',':','0','0',':','0','0'};
+	for(i=0; i<8; i++){
+		time_str[0] = (char) hours/10 + 0x30;
+		time_str[1] = (char) hours%10 + 0x30;
+		time_str[3] = (char) minutes/10 + 0x30;
+		time_str[4] = (char) minutes%10 + 0x30;
+		time_str[6] = (char) seconds/10 + 0x30;
+		time_str[7] = (char) seconds%10 + 0x30;
+		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);			
+	}
+	if(alarm_mode){
+		ST7735_DrawString(0,15, "ALARM ON ", ST7735_GREEN);
+	}else{
+		ST7735_DrawString(0,15, "ALARM OFF", ST7735_RED);
+	}
+	refresh = 0;
+}
+
+
 
