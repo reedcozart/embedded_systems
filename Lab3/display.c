@@ -27,18 +27,7 @@ void Refresh_Screen(void){
 		time_str[6] = (char) seconds/10 + 0x30;
 		time_str[7] = (char) seconds%10 + 0x30;
 		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);
-	}
-//	char time_str[9] = {'0','0',':','0','0',':','0','0',(char) 0};
-//	char alarm_on_str[19]  = {'A','L','A','R','M',' ','O','N',' ',' ','0','0',':','0','0',':','0','0', (char) 0};
-//	char alarm_off_str[19] = {'A','L','A','R','M',' ','O','F','F',' ','0','0',':','0','0',':','0','0', (char) 0};
-//	
-//		time_str[0] = (char) hours/10 + 0x30;
-//		time_str[1] = (char) hours%10 + 0x30;
-//		time_str[3] = (char) minutes/10 + 0x30;
-//		time_str[4] = (char) minutes%10 + 0x30;
-//		time_str[6] = (char) seconds/10 + 0x30;
-//		time_str[7] = (char) seconds%10 + 0x30;
-//		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);			
+	}		
 	
 	if(alarm_mode){
 		alarm_on_str[10] = (char) alarm_hours/10 + 0x30;
