@@ -6,6 +6,7 @@
 extern uint8_t alarm_mode;
 extern uint8_t refresh;
 extern uint8_t clock_mode;
+extern uint8_t portE_flag;
 
 extern uint8_t alarm_hours;
 extern uint8_t alarm_minutes;
@@ -15,14 +16,29 @@ void Refresh_Screen(void){
 	char time_str[9] = {'0','0',':','0','0',':','0','0',(char) 0};
 	char alarm_on_str[19]  = {'A','L','A','R','M',' ','O','N',' ',' ','0','0',':','0','0',':','0','0', (char) 0};
 	char alarm_off_str[19] = {'A','L','A','R','M',' ','O','F','F',' ','0','0',':','0','0',':','0','0', (char) 0};
-	
+		
+	if(clock_mode){ //0 = digital, 1 = analog
+		//ANALOG CLOCK DISPLAY CODE HERE
+	}else{
 		time_str[0] = (char) hours/10 + 0x30;
 		time_str[1] = (char) hours%10 + 0x30;
 		time_str[3] = (char) minutes/10 + 0x30;
 		time_str[4] = (char) minutes%10 + 0x30;
 		time_str[6] = (char) seconds/10 + 0x30;
 		time_str[7] = (char) seconds%10 + 0x30;
-		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);			
+		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);
+	}
+//	char time_str[9] = {'0','0',':','0','0',':','0','0',(char) 0};
+//	char alarm_on_str[19]  = {'A','L','A','R','M',' ','O','N',' ',' ','0','0',':','0','0',':','0','0', (char) 0};
+//	char alarm_off_str[19] = {'A','L','A','R','M',' ','O','F','F',' ','0','0',':','0','0',':','0','0', (char) 0};
+//	
+//		time_str[0] = (char) hours/10 + 0x30;
+//		time_str[1] = (char) hours%10 + 0x30;
+//		time_str[3] = (char) minutes/10 + 0x30;
+//		time_str[4] = (char) minutes%10 + 0x30;
+//		time_str[6] = (char) seconds/10 + 0x30;
+//		time_str[7] = (char) seconds%10 + 0x30;
+//		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);			
 	
 	if(alarm_mode){
 		alarm_on_str[10] = (char) alarm_hours/10 + 0x30;
@@ -41,6 +57,10 @@ void Refresh_Screen(void){
 		alarm_off_str[17] = (char) alarm_seconds%10 + 0x30;
 		ST7735_DrawString(0,15, alarm_off_str, ST7735_RED);
 	}
+	if(portE_flag)
+		ST7735_DrawString(0, 4, "PortE Interrupt!", ST7735_WHITE);
+	else
+		ST7735_DrawString(0, 4, "                 ", ST7735_WHITE);
 	refresh = 0;
 }
 
