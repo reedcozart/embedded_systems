@@ -20,7 +20,7 @@
 *.d
 *.cmd
 *.axf
-
+*.Kyle
 *.map
 
 *.dep
