@@ -6,6 +6,7 @@
 extern uint8_t alarm_mode;
 extern uint8_t refresh;
 extern uint8_t clock_mode;
+extern uint8_t portE_flag;
 
 extern uint8_t alarm_hours;
 extern uint8_t alarm_minutes;
@@ -41,6 +42,10 @@ void Refresh_Screen(void){
 		alarm_off_str[17] = (char) alarm_seconds%10 + 0x30;
 		ST7735_DrawString(0,15, alarm_off_str, ST7735_RED);
 	}
+	if(portE_flag)
+		ST7735_DrawString(0, 4, "PortE Interrupt!", ST7735_WHITE);
+	else
+		ST7735_DrawString(0, 4, "                 ", ST7735_WHITE);
 	refresh = 0;
 }
 

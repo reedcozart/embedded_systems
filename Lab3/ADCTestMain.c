@@ -53,6 +53,7 @@ uint8_t refresh = 0;
 uint8_t set_time = 0;
 uint8_t alarm_mode = 0;
 uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog
+uint8_t portE_flag = 0;
 
 uint8_t alarm_hours = 0; // global variables where the time for alarm is stored.
 uint8_t alarm_minutes = 0;
@@ -68,6 +69,7 @@ int main(void){
 	Display_Init();
 	Timer2_Init1Hz();
 	PortF_Init();
+	PortE_Init();
 	
   EnableInterrupts();
 
@@ -75,7 +77,7 @@ int main(void){
     if(refresh){
 			Refresh_Screen();
 		}
-		if(alarm_hours == hours && alarm_minutes == minutes && alarm_seconds == seconds){
+		if(alarm_hours == hours && alarm_minutes == minutes && alarm_seconds == seconds && alarm_mode == 1){
 			Sound_Alarm();
 		}
 	}
