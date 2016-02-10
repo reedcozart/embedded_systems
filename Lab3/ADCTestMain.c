@@ -49,7 +49,9 @@ uint8_t hours;
 uint8_t minutes;
 uint8_t seconds;
 
+//GLOBAL FLAGS 
 uint8_t refresh = 0;
+uint8_t clear_screen = 0; // Used when switching from analog to digital mode, will tell the screen clear everything
 uint8_t set_time = 0;
 uint8_t alarm_mode = 0;
 uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog

@@ -5,6 +5,7 @@
 
 extern uint8_t alarm_mode;
 extern uint8_t refresh;
+extern uint8_t clear_screen;
 extern uint8_t clock_mode;
 extern uint8_t portE_flag;
 
@@ -19,7 +20,16 @@ void Refresh_Screen(void){
 		
 	if(clock_mode){ //0 = digital, 1 = analog
 		//ANALOG CLOCK DISPLAY CODE HERE
+		if(clear_screen){
+			clear_screen = 0;
+			ST7735_FillScreen(0); // reset the screen to black
+		}
+		ST7735_DrawString(0,0, "ANALOG CLOCK", ST7735_YELLOW);
 	}else{
+		if(clear_screen){
+			clear_screen = 0;
+			ST7735_FillScreen(0); // reset the screen to black
+		}
 		time_str[0] = (char) hours/10 + 0x30;
 		time_str[1] = (char) hours%10 + 0x30;
 		time_str[3] = (char) minutes/10 + 0x30;

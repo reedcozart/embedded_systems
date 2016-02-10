@@ -3,6 +3,8 @@
 #include "switch.h"
 
 extern uint8_t alarm_mode;
+extern uint8_t clock_mode;
+extern uint8_t clear_screen;
 extern uint8_t refresh;
 extern uint8_t portE_flag;
 
@@ -52,9 +54,19 @@ void PortE_Init(void){
 
 
 void GPIOPortF_Handler(void){ //Currently this is called when SW1 or SW2 are pressed
-	GPIO_PORTF_ICR_R = 0x11;      // acknowledge flag4 & flag0
-	alarm_mode^=1;
-	refresh = 1;
+	if(GPIO_PORTF_RIS_R&0x01){ //SW2 was pressed toggle clock_mode
+		GPIO_PORTF_ICR_R |= 0x01; //acknowledge flag 0
+		clock_mode ^= 1;
+		clear_screen = 1;
+		refresh = 1;
+		
+	}
+	if(GPIO_PORTF_RIS_R&0x10){ //SW1 as pressed toggle alarm
+		GPIO_PORTF_ICR_R |= 0x10; //acknowledge flag4
+		alarm_mode^=1;
+		refresh = 1;
+	}
+	return;
 }
 
 void GPIOPortE_Handler(void){
