@@ -7,6 +7,7 @@ extern uint8_t refresh;
 extern uint8_t seconds;
 extern uint8_t minutes;
 extern uint8_t hours;
+extern uint64_t timeout;
 
 void Timer1_Init(void){
   SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
@@ -60,11 +61,13 @@ void Timer2_Init1Hz(void){
   TIMER2_CTL_R = 0x00000001;    // 10) enable TIMER2
 	NVIC_EN0_R = NVIC_EN0_R | 1<<23;        // enable interrupt 23 in NVIC
 	refresh = 1; //tell main program to refresh the data on the screen.
+	
 }
 
 void Timer2A_Handler(void){
   TIMER2_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
 	PF1 ^= 0x02;  // toggles when running in main RED LED
+	timeout+=1;
 	seconds++;
 	refresh = 1;
 	if(seconds > 59){
