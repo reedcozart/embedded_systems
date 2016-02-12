@@ -35,8 +35,10 @@ void Refresh_Screen(void){
 		int hourx = midx + hourHandLength * sin(2 * 3.14159 * (hours /60.0));
 		int houry = midy + hourHandLength * -1 * cos(2 * 3.14159 * (hours / 60.0));
 		
-		ST7735_FillScreen(0);
+		ST7735_FillScreen(0); //clear screen
 		
+		
+		//print out clock hands
 		//seconds
 		ST7735_Line(midx, midy, secx, secy, ST7735_RED);
 		//minutes
@@ -44,6 +46,39 @@ void Refresh_Screen(void){
 		//hours
 		ST7735_Line(midx, midy, hourx, houry, ST7735_BLUE);
 		
+		//print out clock characters
+		// inputs: newX  new X-position of the cursor (0<=newX<=20)
+		//         newY  new Y-position of the cursor (0<=newY<=15)
+		ST7735_SetCursor(9, 3);
+		ST7735_OutChar('1');
+		ST7735_SetCursor(10, 3);
+		ST7735_OutChar('2');
+		ST7735_SetCursor(14, 4);
+		ST7735_OutChar('1');
+		ST7735_SetCursor(16, 6);
+		ST7735_OutChar('2');		
+		ST7735_SetCursor(17, 8);
+		ST7735_OutChar('3');
+		ST7735_SetCursor(16, 10);
+		ST7735_OutChar('4');
+		ST7735_SetCursor(14, 12);
+		ST7735_OutChar('5');		
+		ST7735_SetCursor(10, 13);
+		ST7735_OutChar('6');
+		ST7735_SetCursor(7, 12);
+		ST7735_OutChar('7');
+		ST7735_SetCursor(4, 10);
+		ST7735_OutChar('8');
+		ST7735_SetCursor(3, 8);
+		ST7735_OutChar('9');
+		ST7735_SetCursor(3, 6);
+		ST7735_OutChar('1');
+		ST7735_SetCursor(4, 6);
+		ST7735_OutChar('0');
+		ST7735_SetCursor(6, 4);
+		ST7735_OutChar('1');
+		ST7735_SetCursor(7, 4);
+		ST7735_OutChar('1');
 		
 		if(clear_screen){
 			clear_screen = 0;
