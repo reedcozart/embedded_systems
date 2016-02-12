@@ -58,6 +58,7 @@ uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog
 uint8_t portE_flag = 0;
 uint8_t time_set = 0; //Flag for time set mode 0 = off 1 = on
 uint8_t alarm_set = 0; //Flag for Alarm set mode 0 = off 1 = on
+uint8_t alarm_on = 0;
 
 uint64_t timeout = 11;
 
@@ -88,7 +89,8 @@ int main(void){
 			Refresh_Screen();
 		}
 		if(alarm_hours == hours && alarm_minutes == minutes && alarm_seconds == seconds && alarm_mode == 1){
-			Sound_Alarm();
+			alarm_on = 1;
+			//TIMER1_CTL_R = 0x00000001;
 		}
 	}
 }

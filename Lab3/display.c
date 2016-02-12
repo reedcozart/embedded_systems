@@ -36,11 +36,14 @@ void Refresh_Screen(void){
 		int secy = midy + secHandLength * -1 * cos(2 * 3.14159 * (seconds / 60.0));
 		int minx = midx + minHandLength * sin(2 * 3.14159 * (minutes /60.0));
 		int miny = midy + minHandLength * -1 * cos(2 * 3.14159 * (minutes / 60.0));
-		int hourx = midx + hourHandLength * sin(2 * 3.14159 * (hours /60.0));
-		int houry = midy + hourHandLength * -1 * cos(2 * 3.14159 * (hours / 60.0));
+		int hourx = midx + hourHandLength * sin(2 * 3.14159 * (1.0*hours /12.0));
+		int houry = midy + hourHandLength * -1 * cos(2 * 3.14159 * (1.0*hours/12.0));
 		
 		ST7735_FillScreen(0); //clear screen
-		
+		if(clear_screen){
+			clear_screen = 0;
+			ST7735_FillScreen(0); // reset the screen to black
+		}
 		
 		//print out clock hands
 		//seconds
@@ -84,10 +87,7 @@ void Refresh_Screen(void){
 		ST7735_SetCursor(7, 4);
 		ST7735_OutChar('1');
 		
-		if(clear_screen){
-			clear_screen = 0;
-			ST7735_FillScreen(0); // reset the screen to black
-		}
+
 		ST7735_DrawString(0,0, "ANALOG CLOCK", ST7735_YELLOW);
 	}else{
 		//Digital Clock Display
