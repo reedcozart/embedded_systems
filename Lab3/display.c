@@ -9,10 +9,14 @@ extern uint8_t refresh;
 extern uint8_t clear_screen;
 extern uint8_t clock_mode;
 extern uint8_t portE_flag;
+extern uint8_t time_set;
+extern uint8_t alarm_set;
 
 extern uint8_t alarm_hours;
 extern uint8_t alarm_minutes;
 extern uint8_t alarm_seconds;
+
+extern uint64_t timeout;
 
 void Refresh_Screen(void){
 	char time_str[9] = {'0','0',':','0','0',':','0','0',(char) 0};
@@ -100,6 +104,17 @@ void Refresh_Screen(void){
 		ST7735_DrawString(0,0, time_str, ST7735_YELLOW);
 	}		
 	
+	//BOTH CLOCK DISPLAYS EXECUTE THE FOLLOWING
+	if(time_set && !alarm_set){
+		ST7735_DrawString(0,14, "TIME SET MODE   ", ST7735_WHITE);
+	}
+	if(alarm_set && !time_set){
+		ST7735_DrawString(0,14, "ALARM SET MODE  ", ST7735_WHITE);
+	}else if(!time_set && !alarm_set){
+		ST7735_DrawString(0,14, "                 ", ST7735_WHITE);
+	}
+	if(timeout>10)
+		ST7735_DrawString(0,14, "                 ", ST7735_WHITE); //if timeout is greater than ten write over time_set and alarm_set indicators
 	if(alarm_mode){
 		//Alarm Mode on
 		alarm_on_str[10] = (char) alarm_hours/10 + 0x30;

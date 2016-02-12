@@ -56,6 +56,10 @@ uint8_t set_time = 0;
 uint8_t alarm_mode = 0;
 uint8_t clock_mode = 0; //Digital/analog mode 0 = Digital; 1 = Analog
 uint8_t portE_flag = 0;
+uint8_t time_set = 0; //Flag for time set mode 0 = off 1 = on
+uint8_t alarm_set = 0; //Flag for Alarm set mode 0 = off 1 = on
+
+uint64_t timeout = 11;
 
 uint8_t alarm_hours = 0; // global variables where the time for alarm is stored.
 uint8_t alarm_minutes = 0;
@@ -76,6 +80,10 @@ int main(void){
   EnableInterrupts();
 
   while(1){
+		if(timeout>10){
+			time_set = 0;
+			alarm_set = 0;
+		}
     if(refresh){
 			Refresh_Screen();
 		}
