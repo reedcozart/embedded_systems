@@ -2,6 +2,8 @@
 #include "../inc/tm4c123gh6pm.h"
 #include <stdint.h>
 
+#define PE2  (*((volatile uint32_t *)0x40024020))
+
 
 extern uint8_t refresh;
 extern uint8_t seconds;
@@ -14,7 +16,7 @@ void Timer1_Init(void){
   TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
   TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
   TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-  TIMER1_TAILR_R = 0xFFFFFFFF;    // 4) reload value
+  TIMER1_TAILR_R = 80000;    // 4) reload value - 1k Hz
   TIMER1_TAPR_R = 0;            // 5) bus clock resolution
   TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
   TIMER1_IMR_R = 0x00000001;    // 7) arm timeout interrupt
@@ -78,6 +80,11 @@ void Timer2A_Handler(void){
 			}
 		}
 	}
+}
+
+void Timer1A_Handler(void){
+  TIMER1_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer1A timeout
+	PE2 ^= 0x01;
 }
 
 
