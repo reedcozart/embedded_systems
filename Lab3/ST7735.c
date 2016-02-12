@@ -90,6 +90,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "ST7735.h"
 #include "../inc/tm4c123gh6pm.h"
 
@@ -1626,5 +1627,47 @@ void Output_Color(uint32_t newColor){ // Set color of future output
 void ST7735_Line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                  uint16_t color){
 								 
+		int t, distance;
+    int xerr=0, yerr=0, delta_x, delta_y;
+    int incx, incy;
+ 
+    /* compute the distances in both directions */
+    delta_x=x2-x1;
+    delta_y=y2-y1;
+ 
+    /* Compute the direction of the increment,
+       an increment of 0 means either a horizontal or vertical
+       line.
+    */
+    if(delta_x>0) incx=1;
+    else if(delta_x==0) incx=0;
+    else incx=-1;
+ 
+    if(delta_y>0) incy=1;
+    else if(delta_y==0) incy=0;
+    else incy=-1;
+ 
+    /* determine which distance is greater */
+    delta_x=abs(delta_x);
+    delta_y=abs(delta_y);
+    if(delta_x>delta_y) distance=delta_x;
+    else distance=delta_y;
+ 
+    /* draw the line */
+    for(t=0; t<=distance+1; t++) {
+				ST7735_DrawPixel(x1, y1, color);
+         
+        xerr+=delta_x;
+        yerr+=delta_y;
+        if(xerr>distance) {
+            xerr-=distance;
+            x1+=incx;
+        }
+        if(yerr>distance) {
+            yerr-=distance;
+            y1+=incy;
+        }
+    }							 
+	
 }
 

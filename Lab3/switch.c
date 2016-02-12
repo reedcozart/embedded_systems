@@ -13,6 +13,7 @@ void PortF_Init(void){
 	
 	// initialize built-in switches and LEDs on Port F
   SYSCTL_RCGCGPIO_R |= 0x00000020; // (a) activate clock for port F
+	int delay = 0;
 	GPIO_PORTF_LOCK_R = 0x4C4F434B ;    //unlock GPIO Portf F
 	GPIO_PORTF_CR_R = 0x1F;							//allows changes to port f
 	GPIO_PORTF_DIR_R |= 0x0E;         // (c) make PF3, PF2, PF1 out (built-in LED) PF4, PF0 in (SW1, SW2)
@@ -36,6 +37,7 @@ void PortE_Init(void){
 	
 	// initialize built-in switches and LEDs on Port E
   SYSCTL_RCGCGPIO_R |= 0x00000010; // (a) activate clock for port E
+	int delay = 0;
 	GPIO_PORTE_DIR_R |= 0x04;         // (c) make PE0, PE1 Breadboard switch in(SWL, SWR) PE2 connects 1N2222 transister
   GPIO_PORTE_AFSEL_R &= ~0x7;  //     disable alt funct on PE2, PE1, PE0
   GPIO_PORTE_DEN_R |= 0x07;     //     enable digital I/O on PE2, PE1, PE0   
