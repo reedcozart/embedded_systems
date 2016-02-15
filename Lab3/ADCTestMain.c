@@ -35,6 +35,7 @@
 #include "ST7735.h"
 #include "Timer1.h"
 
+#define PE2  (*((volatile uint32_t *)0x40024020))
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -73,14 +74,18 @@ int main(void){
   //ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
   Timer0A_Init100HzInt();               // set up Timer0A for 100 Hz interrupts
 	Timer1_Init();
-	Display_Init();
-	Timer2_Init1Hz();
-	PortF_Init();
-	PortE_Init();
+	Display_Init();						//initialize display
+	Timer2_Init1Hz();		
+	PortF_Init(); //initialize portf with onboard switches
+	PortE_Init(); // initialize port e as breadboard switches.
 	
   EnableInterrupts();
 
   while(1){
+		if( !alarm_mode || alarm_hours!= hours || alarm_minutes != minutes){ //if the alarm mode is turned off, disable timer1
+			TIMER1_CTL_R = 0x00000000;
+			GPIO_PORTF_DATA_R &= ~0x08; //make sure alarm LED is off
+		}
 		if(timeout>10){
 			time_set = 0;
 			alarm_set = 0;
@@ -88,9 +93,9 @@ int main(void){
     if(refresh){
 			Refresh_Screen();
 		}
-		if(alarm_hours == hours && alarm_minutes == minutes && alarm_seconds == seconds && alarm_mode == 1){
+		if(alarm_hours == hours && alarm_minutes == minutes && alarm_mode == 1){
 			alarm_on = 1;
-			//TIMER1_CTL_R = 0x00000001;
+			TIMER1_CTL_R = 0x00000001;
 		}
 	}
 }

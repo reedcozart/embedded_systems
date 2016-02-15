@@ -9,9 +9,10 @@ extern uint8_t refresh;
 extern uint8_t seconds;
 extern uint8_t minutes;
 extern uint8_t hours;
+extern uint8_t alarm_mode;
 extern uint64_t timeout;
 
-void Timer1_Init(void){
+void Timer1_Init(void){   //This is the alarm timer!
   SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
   //PeriodicTask = task;          // user function
   TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
@@ -50,7 +51,7 @@ void Timer0A_Init100HzInt(void){
   NVIC_EN0_R = 1<<19;              // enable interrupt 19 in NVIC
 }
 
-void Timer2_Init1Hz(void){
+void Timer2_Init1Hz(void){ //this is the seconds counter
   SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate TIMER2
   TIMER2_CTL_R = 0x00000000;    // 1) disable TIMER2 during setup
   TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
@@ -85,10 +86,12 @@ void Timer2A_Handler(void){
 	}
 }
 
-void Timer1A_Handler(void){
+void Timer1A_Handler(void){      //alarm handler!
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer1A timeout
-	GPIO_PORTE_DATA_R ^= 0x04;
-	GPIO_PORTF_DATA_R ^= 0x08;
+	if(alarm_mode){
+		GPIO_PORTE_DATA_R ^= 0x04; //sound alarm!
+		GPIO_PORTF_DATA_R ^= 0x08; //toggle LED to show that the alarm is supposed to sound
+	}
 }
 
 

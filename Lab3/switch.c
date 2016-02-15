@@ -48,8 +48,7 @@ void PortE_Init(void){
 	
 	// initialize built-in switches and LEDs on Port E
   SYSCTL_RCGCGPIO_R |= 0x00000010; // (a) activate clock for port E
-	int delay = 0;
-	GPIO_PORTE_DIR_R |= 0x03;         // (c) make PE0, PE1 Breadboard switch in(SWL, SWR) PE2 connects 1N2222 transister
+	GPIO_PORTE_DIR_R &= ~0x03;         // (c) make PE0, PE1 Breadboard switch in(SWL, SWR) PE2 connects 1N2222 transister
   GPIO_PORTE_AFSEL_R &= ~0x7;  //     disable alt funct on PE2, PE1, PE0
   GPIO_PORTE_DEN_R |= 0x07;     //     enable digital I/O on PE2, PE1, PE0   
   //GPIO_PORTE_PCTL_R &= ~0x000F0000; // configure PE2, PE0, PE1 as GPIO
