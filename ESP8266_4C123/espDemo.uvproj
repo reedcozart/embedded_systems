@@ -414,19 +414,9 @@
               <FilePath>.\pll.c</FilePath>
             </File>
             <File>
-              <FileName>systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\systick.c</FilePath>
-            </File>
-            <File>
               <FileName>esp8266.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\esp8266.c</FilePath>
-            </File>
-            <File>
-              <FileName>http.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\http.c</FilePath>
             </File>
             <File>
               <FileName>UART.c</FileName>

@@ -2,7 +2,7 @@
 // Runs on LM3S811, LM3S1968, LM3S8962, LM4F120, TM4C123
 // Simple device driver for the UART.
 // Daniel Valvano
-// May 30, 2014
+// September 19, 2015
 // Modified by EE345L students Charlie Gough && Matt Hawk
 // Modified by EE345M students Agustinus Darmawan && Mingjie Qiu
 
@@ -47,6 +47,12 @@ void UART_Init(void);
 // Input: none
 // Output: ASCII code for key typed
 char UART_InChar(void);
+
+//------------UART_InCharNonBlock------------
+// input ASCII character from UART
+// output: 0 if RxFifo is empty
+//         character if
+char UART_InCharNonBlock(void);
 
 //------------UART_OutChar------------
 // Output 8-bit to serial port
@@ -116,5 +122,12 @@ void UART_OutUHex(uint32_t number);
 // Output: Null terminated string
 // -- Modified by Agustinus Darmawan + Mingjie Qiu --
 void UART_InString(char *bufPt, uint16_t max);
+
+//------------Output_Init------------
+// Initialize the UART for 115,200 baud rate (assuming 80 MHz bus clock),
+// 8 bit word length, no parity bits, one stop bit, FIFOs enabled
+// Input: none
+// Output: none
+void Output_Init(void);
 
 #endif

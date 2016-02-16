@@ -4,7 +4,7 @@
 // computer running HyperTerminal.  This time, interrupts and FIFOs
 // are used.
 // Daniel Valvano
-// September 11, 2013
+// September 19, 2015
 // Modified by EE345L students Charlie Gough && Matt Hawk
 // Modified by EE345M students Agustinus Darmawan && Mingjie Qiu
 
@@ -29,7 +29,7 @@
 // U0Tx (VCP transmit) connected to PA1
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
-
+#include <stdio.h>
 #include "FIFO.h"
 #include "UART.h"
 
@@ -64,7 +64,7 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
-#define FIFOSIZE   16         // size of the FIFOs (must be power of 2)
+#define FIFOSIZE   1024       // size of the FIFOs (must be power of 2)
 #define FIFOSUCCESS 1         // return value on success
 #define FIFOFAIL    0         // return value on failure
                               // create index implementation FIFO (see FIFO.h)
@@ -124,8 +124,24 @@ char UART_InChar(void){
   while(RxFifo_Get(&letter) == FIFOFAIL){};
   return(letter);
 }
-// output ASCII character to UART
-// spin if TxFifo is full
+
+//------------UART_InCharNonBlock------------
+// input ASCII character from UART
+// output: 0 if RxFifo is empty
+//         character if
+char UART_InCharNonBlock(void){
+  char letter;
+  if(RxFifo_Get(&letter) == FIFOFAIL){
+    return 0;  // empty
+  };
+  return(letter);
+}
+
+//------------UART_OutChar------------
+// Output 8-bit to serial port
+// Input: letter is an 8-bit ASCII character to be transferred
+// Output: none
+// spin if TxFifo full
 void UART_OutChar(char data){
   while(TxFifo_Put(data) == FIFOFAIL){};
   UART0_IM_R &= ~UART_IM_TXIM;          // disable TX FIFO interrupt
@@ -324,3 +340,72 @@ char character;
   }
   *bufPt = 0;
 }
+
+
+// this is used for printf to output to the usb uart
+int fputc(int ch, FILE *f){
+  UART_OutChar(ch);
+  return 1;
+}
+
+#ifdef __TI_COMPILER_VERSION__
+  //Code Composer Studio Code
+#include "file.h"
+int uart_open(const char *path, unsigned flags, int llv_fd){
+  UART_Init();
+  return 0;
+}
+int uart_close( int dev_fd){
+  return 0;
+}
+int uart_read(int dev_fd, char *buf, unsigned count){char ch;
+  ch = UART_InChar();    // receive from keyboard
+  ch = *buf;         // return by reference
+  UART_OutChar(ch);  // echo
+  return 1;
+}
+int uart_write(int dev_fd, const char *buf, unsigned count){ unsigned int num=count;
+  while(num){
+    UART_OutChar(*buf);
+    buf++;
+    num--;
+  }
+  return count;
+}
+off_t uart_lseek(int dev_fd, off_t ioffset, int origin){
+  return 0;
+}
+int uart_unlink(const char * path){
+  return 0;
+}
+int uart_rename(const char *old_name, const char *new_name){
+  return 0;
+}
+
+//------------Output_Init------------
+// Initialize the UART for 115,200 baud rate (assuming 80 MHz bus clock),
+// 8 bit word length, no parity bits, one stop bit
+// Input: none
+// Output: none
+void Output_Init(void){int ret_val; FILE *fptr;
+  UART_Init();
+  ret_val = add_device("uart", _SSA, uart_open, uart_close, uart_read, uart_write, uart_lseek, uart_unlink, uart_rename);
+  if(ret_val) return; // error
+  fptr = fopen("uart","w");
+  if(fptr == 0) return; // error
+  freopen("uart:", "w", stdout); // redirect stdout to uart
+  setvbuf(stdout, NULL, _IONBF, 0); // turn off buffering for stdout
+
+}
+#else
+//Keil uVision Code
+//------------Output_Init------------
+// Initialize the UART for 115,200 baud rate (assuming 80 MHz bus clock),
+// 8 bit word length, no parity bits, one stop bit, FIFOs enabled
+// Input: none
+// Output: none
+void Output_Init(void){
+  UART_Init();
+}
+#endif
+

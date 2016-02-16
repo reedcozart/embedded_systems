@@ -8,8 +8,13 @@
 //
 //*********************************************************
 /* Modified by Jonathan Valvano
- Sept 17, 2015
- 
+ Feb 3, 2016
+ Out of the box: to make this work you must
+ Step 1) Set parameters of your AP in lines 59-60 of esp8266.c
+ Step 2) Change line 39 with directions in lines 40-42
+ Step 3) Run a terminal emulator like Putty or TExasDisplay at
+         115200 bits/sec, 8 bit, 1 stop, no flow control
+ Step 4) Set line 50 to match baud rate of your ESP8266 (9600 or 115200)
  */
 #include <stdio.h>
 #include <stdbool.h>
@@ -21,9 +26,7 @@
 
 #include "pll.h"
 #include "UART.h"
-#include "systick.h"
 #include "esp8266.h"
-#include "http.h"
 #include "LED.h"
 
 // prototypes for functions defined in startup.s
@@ -33,112 +36,60 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
-// global variables
-volatile uint32_t Msec = 0;
-volatile uint32_t Seconds = 0;
-void Output_Init(void);
+char Fetch[] = "GET /data/2.5/weather?q=Austin%20Texas&APPID=1234567890abcdef1234567890abcdef HTTP/1.1\r\nHost:api.openweathermap.org\r\n\r\n";
+// 1) go to http://openweathermap.org/appid#use 
+// 2) Register on the Sign up page
+// 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
+
 int main(void){  
   DisableInterrupts();
   PLL_Init(Bus80MHz);
   LED_Init();  
-  SysTick_Init(80000); // interrupt every 1ms (every 80000 cycles)
   Output_Init();       // UART0 only used for debugging
   printf("\n\r-----------\n\rSystem starting...\n\r");
-  ESP8266_Init();      // global enable interrupts
+  ESP8266_Init(115200);      // connect to access point, set up as client
+  ESP8266_GetVersionNumber();
   while(1){
     ESP8266_GetStatus();
-    if(ESP8266_MakeTCPConnection()==0){ // data streamed to UART0
-      printf("MakeTCPConnection, could not make connection\n\r");
-      while(1){};
+    if(ESP8266_MakeTCPConnection("openweathermap.org")){ // open socket in server
+      LED_GreenOn();
+      ESP8266_SendTCP(Fetch);
     }
-    LED_GreenOn();
-    ESP8266_SendTCP();
     ESP8266_CloseTCPConnection();
-    while(Board_Input()==0){
-      WaitForInterrupt();
-    }; // wait for touch
+    while(Board_Input()==0){// wait for touch
+    }; 
     LED_GreenOff();
     LED_RedToggle();
   }
 }
 
-// this is called every time the systick generates an interrupt
-void SysTick_Handler(void){
-  Msec++;
-  if(Msec % 1000 == 0){
-  Seconds++;
-      // toggle a flag or do something every ms here
+// transparent mode for testing
+void ESP8266SendCommand(char *);
+int main2(void){  char data;
+  DisableInterrupts();
+  PLL_Init(Bus80MHz);
+  LED_Init();  
+  Output_Init();       // UART0 as a terminal
+  printf("\n\r-----------\n\rSystem starting at 9600 baud...\n\r");
+//  ESP8266_Init(38400);
+  ESP8266_InitUART(9600,true);
+  ESP8266_EnableRXInterrupt();
+  EnableInterrupts();
+  ESP8266SendCommand("AT+RST\r\n");
+  data = UART_InChar();
+//  ESP8266SendCommand("AT+UART=115200,8,1,0,3\r\n");
+//  data = UART_InChar();
+//  ESP8266_InitUART(115200,true);
+//  data = UART_InChar();
+  
+  while(1){
+// echo data back and forth
+    data = UART_InCharNonBlock();
+    if(data){
+      ESP8266_PrintChar(data);
+    }
   }
 }
 
-// this is used for printf to output to the usb uart
-int fputc(int ch, FILE *f){
-  UART_OutChar(ch);
-  return 1;
-}
 
-#ifdef __TI_COMPILER_VERSION__
-  //Code Composer Studio Code
-#include "file.h"
-int uart_open(const char *path, unsigned flags, int llv_fd){
-  UART_Init();
-  return 0;
-}
-int uart_close( int dev_fd){
-  return 0;
-}
-int uart_read(int dev_fd, char *buf, unsigned count){char ch;
-  ch = UART_InChar();    // receive from keyboard
-  ch = *buf;         // return by reference
-  UART_OutChar(ch);  // echo
-  return 1;
-}
-int uart_write(int dev_fd, const char *buf, unsigned count){ unsigned int num=count;
-  while(num){
-    UART_OutChar(*buf);
-    buf++;
-    num--;
-  }
-  return count;
-}
-off_t uart_lseek(int dev_fd, off_t ioffset, int origin){
-  return 0;
-}
-int uart_unlink(const char * path){
-  return 0;
-}
-int uart_rename(const char *old_name, const char *new_name){
-  return 0;
-}
-
-//------------Output_Init------------
-// Initialize the UART for 115,200 baud rate (assuming 3 MHz bus clock),
-// 8 bit word length, no parity bits, one stop bit
-// Input: none
-// Output: none
-void Output_Init(void){int ret_val; FILE *fptr;
-  UART_Init();
-  ret_val = add_device("uart", _SSA, uart_open, uart_close, uart_read, uart_write, uart_lseek, uart_unlink, uart_rename);
-  if(ret_val) return; // error
-  fptr = fopen("uart","w");
-  if(fptr == 0) return; // error
-  freopen("uart:", "w", stdout); // redirect stdout to uart
-  setvbuf(stdout, NULL, _IONBF, 0); // turn off buffering for stdout
-
-}
-#else
-//Keil uVision Code
-//------------Output_Init------------
-// Initialize the Nokia5110
-// Input: none
-// Output: none
-//------------Output_Init------------
-// Initialize the UART for 115,200 baud rate (assuming 16 MHz bus clock),
-// 8 bit word length, no parity bits, one stop bit, FIFOs enabled
-// Input: none
-// Output: none
-void Output_Init(void){
-  UART_Init();
-}
-#endif
 
