@@ -89,8 +89,7 @@ void Timer2A_Handler(void){
 void Timer1A_Handler(void){      //alarm handler!
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer1A timeout
 	if(alarm_mode){
-		GPIO_PORTE_DATA_R ^= 0x04; //sound alarm!
-		GPIO_PORTF_DATA_R ^= 0x08; //toggle LED to show that the alarm is supposed to sound
+		GPIO_PORTF_DATA_R ^= 0x08; //toggle LED to show that the alarm is supposed to sound, and sound alarm!
 	}
 }
 

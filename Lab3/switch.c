@@ -27,7 +27,7 @@ void PortF_Init(void){
 	int delay = 0;
 	GPIO_PORTF_LOCK_R = 0x4C4F434B ;    //unlock GPIO Portf F
 	GPIO_PORTF_CR_R = 0x1F;							//allows changes to port f
-	GPIO_PORTF_DIR_R |= 0x0E;         // (c) make PF3, PF2, PF1 out (built-in LED) PF4, PF0 in (SW1, SW2)
+	GPIO_PORTF_DIR_R |= 0x0E;         // (c) make PF3, PF2, PF1 out (built-in LED) PF4, PF0 in (SW1, SW2), PF3 is wired to the 1N2222 transister for the sound output.
   GPIO_PORTF_AFSEL_R &= ~0x11;  //     disable alt funct on PF4, PF0
   GPIO_PORTF_DEN_R |= 0x1F;     //     enable digital I/O on PF4 - PF0 
   //GPIO_PORTF_PCTL_R &= ~0x000F0000; // configure PF4 as GPIO
