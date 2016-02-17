@@ -28,6 +28,7 @@
 #include "UART.h"
 #include "esp8266.h"
 #include "LED.h"
+#include "ST7735.h"
 
 // prototypes for functions defined in startup.s
 void DisableInterrupts(void); // Disable interrupts
@@ -35,6 +36,8 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
+
+int ParseResponse(char* resp); //subroutine for parsing the openweather.org json string
 
 char Fetch[] = "GET /data/2.5/weather?q=Austin%20Texas&APPID=e18aa6ec1dab60a6867898c207404521 HTTP/1.1\r\nHost:api.openweathermap.org\r\n\r\n";
 // 1) go to http://openweathermap.org/appid#use 
@@ -44,6 +47,7 @@ char Fetch[] = "GET /data/2.5/weather?q=Austin%20Texas&APPID=e18aa6ec1dab60a6867
 int main(void){  
   DisableInterrupts();
   PLL_Init(Bus80MHz);
+	//ST7735_InitR(INITR_REDTAB);
   LED_Init();  
   Output_Init();       // UART0 only used for debugging
   printf("\n\r-----------\n\rSystem starting...\n\r");
@@ -91,5 +95,8 @@ int main2(void){  char data;
   }
 }
 
+int ParseResponse(char* resp){
+	
+}
 
 

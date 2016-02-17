@@ -57,8 +57,8 @@ ESP8266    TM4C123
 #include "esp8266.h"
 #include "UART.h"
 // Access point parameters
-#define SSID_NAME  "ValvanoAP"
-#define PASSKEY    "12345678"
+#define SSID_NAME  "SpaceCats"
+#define PASSKEY    "myfi1393"
 //#define SEC_TYPE   ESP8266_ENCRYPT_MODE_WPA2_PSK
 
 #define BUFFER_SIZE 1024
@@ -220,10 +220,10 @@ void ESP8266_InitUART(uint32_t baud, int echo){ volatile int delay;
   GPIO_PORTB_DEN_R   |= 0x23; //23 
   GPIO_PORTB_DATA_R |= 0x20; // reset high
   UART1_CTL_R &= ~UART_CTL_UARTEN;                  // Clear UART1 enable bit during config
-  UART1_IBRD_R = 5000000/baud;   
-  UART1_FBRD_R = ((64*(5000000%baud))+baud/2)/baud;      
-   // UART1_IBRD_R = 43;       // IBRD = int(80,000,000 / (16 * 115,200)) = int(43.403)
-   // UART1_FBRD_R = 26;       // FBRD = round(0.4028 * 64 ) = 26
+  //UART1_IBRD_R = 5000000/baud;   
+  //UART1_FBRD_R = ((64*(5000000%baud))+baud/2)/baud;      
+  UART1_IBRD_R = 43;       // IBRD = int(80,000,000 / (16 * 115,200)) = int(43.403)
+  UART1_FBRD_R = 26;       // FBRD = round(0.4028 * 64 ) = 26
 
   UART1_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);  // 8 bit word length, 1 stop, no parity, FIFOs enabled
   UART1_IFLS_R &= ~0x3F;                            // Clear TX and RX interrupt FIFO level fields
@@ -365,9 +365,9 @@ void ESP8266_Init(uint32_t baud){
 //  ESP8266_InitUART(115200,true);
   
 // step 2: AT+CWMODE=1 set wifi mode to client (not an access point)
-  if(ESP8266_SetWifiMode(ESP8266_WIFI_MODE_CLIENT)==0){ 
-    printf("SetWifiMode, could not set mode\n\r"); while(1){};
-  }
+//  if(ESP8266_SetWifiMode(ESP8266_WIFI_MODE_CLIENT)==0){ 
+//    printf("SetWifiMode, could not set mode\n\r"); while(1){};
+//  }
 // step 3: AT+CWJAP="ValvanoAP","12345678"  connect to access point 
   if(ESP8266_JoinAccessPoint(SSID_NAME,PASSKEY)==0){ 
     printf("JoinAccessPoint error, could not join AP\n\r"); while(1){};
