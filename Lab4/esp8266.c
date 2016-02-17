@@ -105,6 +105,8 @@ volatile bool ESP8266_ServerEnabled = false;
 volatile bool ESP8266_InputProcessingEnabled = false;
 volatile bool ESP8266_PageRequested = false;
 
+extern char ResponseJson[SERVER_RESPONSE_SIZE];
+
 /*
 =======================================================================
 ==========              search FUNCTIONS                     ==========
@@ -575,6 +577,7 @@ int ESP8266_CloseTCPConnection(void){
   int try=1;
   SearchStart("ok");
   while(try){
+		strcpy(ResponseJson, ServerResponseBuffer);
     ESP8266SendCommand("AT+CIPCLOSE\r\n");   
     DelayMsSearching(4000);
     if(SearchFound) return 1; // success
