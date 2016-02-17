@@ -102,5 +102,3 @@ int main2(void){  char data;
 int ParseResponse(char* resp){
 	
 }
-
-
