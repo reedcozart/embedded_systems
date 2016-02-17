@@ -40,6 +40,7 @@ void WaitForInterrupt(void);  // low power mode
 int ParseResponse(char* resp); //subroutine for parsing the openweather.org json string
 
 char Fetch[] = "GET /data/2.5/weather?q=Austin%20Texas&APPID=e18aa6ec1dab60a6867898c207404521 HTTP/1.1\r\nHost:api.openweathermap.org\r\n\r\n";
+char ResponseJson[SERVER_RESPONSE_SIZE];
 // 1) go to http://openweathermap.org/appid#use 
 // 2) Register on the Sign up page
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
@@ -59,7 +60,7 @@ int main(void){
       LED_GreenOn();
       ESP8266_SendTCP(Fetch);
     }
-    ESP8266_CloseTCPConnection();
+    ESP8266_CloseTCPConnection(); 
     while(Board_Input()==0){// wait for touch
     }; 
     LED_GreenOff();

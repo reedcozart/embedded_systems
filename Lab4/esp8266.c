@@ -93,7 +93,6 @@ uint32_t LastReturnIndex = 0;
 uint32_t CurrentReturnIndex = 0;
 char RXBuffer[BUFFER_SIZE];
 char TXBuffer[BUFFER_SIZE];
-#define SERVER_RESPONSE_SIZE 1024
 char ServerResponseBuffer[SERVER_RESPONSE_SIZE]; // characters after +IPD,
 uint32_t ServerResponseIndex = 0;
 

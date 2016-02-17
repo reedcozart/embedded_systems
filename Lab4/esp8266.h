@@ -25,6 +25,9 @@
 #define ESP8266_WIFI_MODE_AP                2
 #define ESP8266_WIFI_MODE_AP_AND_CLIENT     3
 
+
+#define SERVER_RESPONSE_SIZE 1024
+
 //-------------------ESP8266_Init --------------
 // initializes the module as a client
 // Inputs: none
