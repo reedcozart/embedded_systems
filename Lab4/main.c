@@ -47,14 +47,20 @@ char ResponseJson[SERVER_RESPONSE_SIZE];
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
 
 int main(void){  
+	char* lab4greeting = "Welcome to Lab 4!";
+	
   DisableInterrupts();
   PLL_Init(Bus80MHz);
 	//ST7735_InitR(INITR_REDTAB);
   LED_Init();  
   Output_Init();       // UART0 only used for debugging
+	ST7735_Output_Init(); 
   printf("\n\r-----------\n\rSystem starting...\n\r");
+	ST7735_DrawString(0,0, lab4greeting, ST7735_WHITE);
+	ST7735_DrawString(0,1, "Fetching Weather Data...", ST7735_WHITE);
   ESP8266_Init(115200);      // connect to access point, set up as client
   ESP8266_GetVersionNumber();
+	
   while(1){
     ESP8266_GetStatus();
     if(ESP8266_MakeTCPConnection("openweathermap.org")){ // open socket in server
@@ -127,5 +133,26 @@ int UploadResult(char name[], char city[], char greet[], char data[]) {
 
 
 int ParseResponse(char* resp){
+	char* sub_str;
+	uint32_t offs;
+	uint32_t temp;
+	char temp_str[11] = {'T', 'e', 'm', 'p', ':' ,' ', '0', '0', '0', ' ', 'K'};
 	
+	
+	
+	sub_str = strstr(ResponseJson, "temp");
+	offs = (int) ((int) sub_str - (int)ResponseJson);
+	
+	temp = ((int) ResponseJson[offs+6] - 0x30)*100;
+	temp += ((int) ResponseJson[offs+7] -0x30)*10;
+	temp += ((int) ResponseJson[offs+8] -0x30);
+	
+	temp_str[6] = ResponseJson[offs+6];
+	temp_str[7] = ResponseJson[offs+7];
+	temp_str[8] = ResponseJson[offs+8];
+	
+	ST7735_DrawString(0,1, "                        ", ST7735_WHITE);
+	ST7735_DrawString(0,1, temp_str, ST7735_WHITE);
+	
+	return 0;
 }

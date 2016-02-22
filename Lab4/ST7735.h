@@ -433,21 +433,21 @@ void ST7735_OutString(char *ptr);
 // ********************************************************
 void ST7735_SetTextColor(uint16_t color);
 
-// *************** Output_Init ********************
+// *************** ST7735_Output_Init ********************
 // Standard device driver initialization function for printf
 // Initialize ST7735 LCD
 // Inputs: none
 // Outputs: none
-void Output_Init(void);
+void ST7735_Output_Init(void);
 
 // Clear display
-void Output_Clear(void);
+void ST7735_Output_Clear(void);
 
 // Turn off display (low power)
-void Output_Off(void);
+void ST7735_Output_Off(void);
 
 // Turn on display
-void Output_On(void);
+void ST7735_Output_On(void);
 
 // set the color for future output
 // Background color is fixed at black
