@@ -546,6 +546,19 @@ int ESP8266_MakeTCPConnection(char *IPaddress){
   return 0; // fail
 }
 
+int ESP8266_MakeTCPConnection2(char *IPaddress, int port){
+  int try=MAXTRY;
+  SearchStart("ok");
+  while(try){
+    sprintf((char*)TXBuffer, "AT+CIPSTART=\"TCP\",\"%s\",%d\r\n", IPaddress, port);
+    ESP8266SendCommand(TXBuffer);   // open and connect to a socket
+    DelayMsSearching(8000);
+    if(SearchFound) return 1; // success
+    try--;
+  }
+  return 0; // fail
+}
+
 //---------ESP8266_SendTCP----------
 // Send a TCP packet to server 
 // Input: TCP payload to send

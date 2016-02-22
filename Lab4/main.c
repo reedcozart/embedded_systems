@@ -99,6 +99,33 @@ int main2(void){  char data;
   }
 }
 
+int UploadResult(char name[], char city[], char greet[], char data[]) {
+	char ur[] = "kylepolansky.dyndns.org:50080/api/EE445L_Lab4?name=&city=&greet=&data=";
+	char base[] = "kylepolansky.dyndns.org:50080/api/EE445L_Lab4?name=";
+	char* uploadrequest;
+	uploadrequest = malloc(strlen(ur)+strlen(name)+strlen(city)+strlen(greet)+strlen(data)+1);
+	strcpy(uploadrequest, base);
+	strcat(uploadrequest, name);
+	strcat(uploadrequest, "&city=");
+	strcat(uploadrequest, city);
+	strcat(uploadrequest, "&greet=");
+	strcat(uploadrequest, greet);
+	strcat(uploadrequest, "&data=");
+	strcat(uploadrequest, data);
+	
+	
+	ESP8266_GetStatus();
+    if(ESP8266_MakeTCPConnection2("kylepolansky.dyndns.org",50080)){ // open socket in server
+      LED_GreenOn();
+      ESP8266_SendTCP(uploadrequest);
+    }
+    ESP8266_CloseTCPConnection();
+		free(uploadrequest);
+		return 1;
+}
+
+
+
 int ParseResponse(char* resp){
 	
 }
