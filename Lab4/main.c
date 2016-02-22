@@ -29,6 +29,10 @@
 #include "esp8266.h"
 #include "LED.h"
 #include "ST7735.h"
+#include "adc.h"
+#include "ADCSWTrigger.h"
+
+int UploadResult(char name[], char city[], char greet[], char data[]);
 
 // prototypes for functions defined in startup.s
 void DisableInterrupts(void); // Disable interrupts
@@ -41,6 +45,10 @@ int ParseResponse(char* resp); //subroutine for parsing the openweather.org json
 
 char Fetch[] = "GET /data/2.5/weather?q=Austin%20Texas&APPID=e18aa6ec1dab60a6867898c207404521 HTTP/1.1\r\nHost:api.openweathermap.org\r\n\r\n";
 char ResponseJson[SERVER_RESPONSE_SIZE];
+int ADCvalue = -1;
+
+char temp_str[10] = {'T', 'e', 'm', 'p', ':', '!', '!', '!', 'K', 0};
+	char adcvalue_str[9] = {'A', 'D', 'C', ':', '!', '!', '!', '!', 0};
 
 // 1) go to http://openweathermap.org/appid#use 
 // 2) Register on the Sign up page
@@ -55,6 +63,8 @@ int main(void){
   LED_Init();  
   Output_Init();       // UART0 only used for debugging
 	ST7735_Output_Init(); 
+	ADC0_InitSWTriggerSeq3_Ch9(); //initialize the ADC
+	Timer0A_Init100HzInt(); //initialize the timer
   printf("\n\r-----------\n\rSystem starting...\n\r");
 	ST7735_DrawString(0,0, lab4greeting, ST7735_WHITE);
 	ST7735_DrawString(0,1, "Fetching Weather Data...", ST7735_WHITE);
@@ -70,6 +80,8 @@ int main(void){
     ESP8266_CloseTCPConnection(); 
 		ParseResponse(ResponseJson);
 		printf(ResponseJson);
+		printf("\n Hello!\n");
+		UploadResult("Reed", "ATX", temp_str, adcvalue_str);
     while(Board_Input()==0){// wait for touch
     }; 
     LED_GreenOff();
@@ -106,10 +118,11 @@ int main2(void){  char data;
 }
 
 int UploadResult(char name[], char city[], char greet[], char data[]) {
-	char ur[] = "kylepolansky.dyndns.org:50080/api/EE445L_Lab4?name=&city=&greet=&data=";
-	char base[] = "kylepolansky.dyndns.org:50080/api/EE445L_Lab4?name=";
+	char* ur = "kylepolansky.dyndns.org/api/EE445L_Lab4?name=&city=&greet=&data=";
+	char* base = "GET /api/EE445L_Lab4?name=";
 	char* uploadrequest;
-	uploadrequest = malloc(strlen(ur)+strlen(name)+strlen(city)+strlen(greet)+strlen(data)+1);
+	//uploadrequest = malloc(strlen(ur)+strlen(name)+strlen(city)+strlen(greet)+strlen(data)+1);
+	uploadrequest = malloc(1000);
 	strcpy(uploadrequest, base);
 	strcat(uploadrequest, name);
 	strcat(uploadrequest, "&city=");
@@ -118,10 +131,12 @@ int UploadResult(char name[], char city[], char greet[], char data[]) {
 	strcat(uploadrequest, greet);
 	strcat(uploadrequest, "&data=");
 	strcat(uploadrequest, data);
-	
+	strcat(uploadrequest, " HTTP/1.1\r\nHost:kylepolansky.dyndns.org\r\n\r\n");
+	printf("Uploading Request to Kyle Server!");
+	//uploadreqest = " HTTP/1.1\r\nHost:kylepolansky.dyndns.org\r\n\r\n";
 	
 	ESP8266_GetStatus();
-    if(ESP8266_MakeTCPConnection2("kylepolansky.dyndns.org",50080)){ // open socket in server
+    if(ESP8266_MakeTCPConnection("kylepolansky.dyndns.org")){ // open socket in server
       LED_GreenOn();
       ESP8266_SendTCP(uploadrequest);
     }
@@ -136,7 +151,7 @@ int ParseResponse(char* resp){
 	char* sub_str;
 	uint32_t offs;
 	uint32_t temp;
-	char temp_str[11] = {'T', 'e', 'm', 'p', ':' ,' ', '0', '0', '0', ' ', 'K'};
+	
 	
 	
 	
@@ -147,12 +162,18 @@ int ParseResponse(char* resp){
 	temp += ((int) ResponseJson[offs+7] -0x30)*10;
 	temp += ((int) ResponseJson[offs+8] -0x30);
 	
-	temp_str[6] = ResponseJson[offs+6];
-	temp_str[7] = ResponseJson[offs+7];
-	temp_str[8] = ResponseJson[offs+8];
+	temp_str[5] = ResponseJson[offs+6];
+	temp_str[6] = ResponseJson[offs+7];
+	temp_str[7] = ResponseJson[offs+8];
+	
+	adcvalue_str[4] = ((char) (ADCvalue/1000)) + 0x30;
+	adcvalue_str[5] = ((char) (ADCvalue%1000)/100) + 0x30;
+	adcvalue_str[6] = ((char) (ADCvalue%100)/10) + 0x30;
+	adcvalue_str[7] = ((char) (ADCvalue%10)) + 0x30;
 	
 	ST7735_DrawString(0,1, "                        ", ST7735_WHITE);
 	ST7735_DrawString(0,1, temp_str, ST7735_WHITE);
+	ST7735_DrawString(0,2, adcvalue_str, ST7735_WHITE);
 	
 	return 0;
 }

@@ -9,7 +9,7 @@
 #define PF2             (*((volatile uint32_t *)0x40025010))
 	
 int newADCVal = 0;
-int ADCvalue;
+extern int ADCvalue;
 
 void Timer0A_Init100HzInt(void){ //Need to add 64 bit hardware averaging.
   volatile uint32_t delay;
