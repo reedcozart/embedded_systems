@@ -25,7 +25,8 @@ void Timer0A_Init100HzInt(void){ //Need to add 64 bit hardware averaging.
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 32-b, periodic, interrupts
-  // **** interrupt initialization ****
+  ADC0_SAC_R = ADC_SAC_AVG_64X;
+	// **** interrupt initialization ****
                                    // Timer0A=priority 2
   NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // top 3 bits
   NVIC_EN0_R = 1<<19;              // enable interrupt 19 in NVIC
