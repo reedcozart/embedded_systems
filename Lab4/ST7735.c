@@ -1565,48 +1565,48 @@ void ST7735_SetTextColor(uint16_t color){
   StTextColor = color;
 }
 // Print a character to ST7735 LCD.
-int fputc(int ch, FILE *f){
+int ST7735_fputc(int ch, FILE *f){
   ST7735_OutChar(ch);
   return 1;
 }
 // No input from Nokia, always return data.
-int fgetc (FILE *f){
+int ST7735_fgetc (FILE *f){
   return 0;
 }
 // Function called when file error occurs.
-int ferror(FILE *f){
+int ST7735_ferror(FILE *f){
   /* Your implementation of ferror */
   return EOF;
 }
 // Abstraction of general output device
 // Volume 2 section 3.4.5
 
-// *************** Output_Init ********************
+// *************** ST7735_Output_Init ********************
 // Standard device driver initialization function for printf
 // Initialize ST7735 LCD
 // Inputs: none
 // Outputs: none
-void Output_Init(void){
+void ST7735_Output_Init(void){
   ST7735_InitR(INITR_REDTAB);
   ST7735_FillScreen(0);                 // set screen to black
 }
 
 // Clear display
-void Output_Clear(void){ // Clears the display
+void ST7735_Output_Clear(void){ // Clears the display
   ST7735_FillScreen(0);    // set screen to black
 }
 // Turn off display (low power)
-void Output_Off(void){   // Turns off the display
-  Output_Clear();  // not implemented
+void ST7735_Output_Off(void){   // Turns off the display
+  ST7735_Output_Clear();  // not implemented
 }
 // Turn on display
-void Output_On(void){ // Turns on the display
-  Output_Init();      // reinitialize
+void ST7735_Output_On(void){ // Turns on the display
+  ST7735_Output_Init();      // reinitialize
 }
 // set the color for future output
 // Background color is fixed at black
 // Input:  16-bit packed color
 // Output: none
-void Output_Color(uint32_t newColor){ // Set color of future output
+void ST7735_Output_Color(uint32_t newColor){ // Set color of future output
   ST7735_SetTextColor(newColor);
 }
