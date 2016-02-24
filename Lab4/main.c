@@ -48,7 +48,8 @@ char ResponseJson[SERVER_RESPONSE_SIZE];
 int ADCvalue = -1;
 
 char temp_str[10] = {'T', 'e', 'm', 'p', ':', '!', '!', '!', 'K', 0};
-	char adcvalue_str[9] = {'A', 'D', 'C', ':', '!', '!', '!', '!', 0};
+char adcvalue_str[9] = {'A', 'D', 'C', ':', '!', '!', '!', '!', 0};
+char voltage_str[14] = {'V', 'o', 'l', 't', 'a', 'g', 'e', ':', '!', '.', '!', '!', 'V', 0};
 
 // 1) go to http://openweathermap.org/appid#use 
 // 2) Register on the Sign up page
@@ -132,7 +133,7 @@ int UploadResult(char name[], char city[], char greet[], char data[]) {
 	strcat(uploadrequest, "&data=");
 	strcat(uploadrequest, data);
 	strcat(uploadrequest, " HTTP/1.1\r\nHost:kylepolansky.dyndns.org\r\n\r\n");
-	printf("Uploading Request to Kyle Server!");
+	ST7735_DrawString(0,4, "Uploading Request!", ST7735_WHITE);
 	//uploadreqest = " HTTP/1.1\r\nHost:kylepolansky.dyndns.org\r\n\r\n";
 	
 	ESP8266_GetStatus();
@@ -171,9 +172,16 @@ int ParseResponse(char* resp){
 	adcvalue_str[6] = ((char) (ADCvalue%100)/10) + 0x30;
 	adcvalue_str[7] = ((char) (ADCvalue%10)) + 0x30;
 	
+	voltage_str[8] = ((char) (((ADCvalue *80)/1000)/100)+ 0x30);
+	voltage_str[10] =  ((char) ((((ADCvalue *80)/1000)%100)/10)+ 0x30);
+	voltage_str[11] = ((char) ((((ADCvalue *80)/1000)%10))+ 0x30);
+	
+	
+	
 	ST7735_DrawString(0,1, "                        ", ST7735_WHITE);
 	ST7735_DrawString(0,1, temp_str, ST7735_WHITE);
 	ST7735_DrawString(0,2, adcvalue_str, ST7735_WHITE);
+	ST7735_DrawString(0,3, voltage_str, ST7735_WHITE);
 	
 	return 0;
 }
