@@ -4,16 +4,6 @@
 
 #define PE2  (*((volatile uint32_t *)0x40024020))
 
-
-extern uint8_t refresh;
-extern uint8_t seconds;
-extern uint8_t minutes;
-extern uint8_t hours;
-extern uint8_t alarm_mode;
-extern uint64_t timeout;
-
-
-
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
 void Timer0A_SongTimer(void){
@@ -62,11 +52,9 @@ void Timer2_N2_Init(void){ //this is the seconds counter
   //TIMER2_TAPR_R = 0;            // 5) bus clock resolution
   TIMER2_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
   TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x10000000; // 8) priority 1 (I think)
+  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x00008000; // 8) priority 4
   TIMER2_CTL_R = 0x00000001;    // 10) enable TIMER2
 	NVIC_EN0_R = NVIC_EN0_R | 1<<23;        // enable interrupt 23 in NVIC
-	refresh = 1; //tell main program to refresh the data on the screen.
-	
 }
 
 void Timer3_N3_Init(void){ //this is the seconds counter
@@ -78,30 +66,7 @@ void Timer3_N3_Init(void){ //this is the seconds counter
   //TIMER3_TAPR_R = 0;            // 5) bus clock resolution
   TIMER3_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
   TIMER3_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x10000000; // 8) priority 1 (I think) //ASK RYAN
+  NVIC_PRI8_R = (NVIC_PRI8_R&0x00FFFFFF)|0x80000000; // 8) priority 4
   TIMER3_CTL_R = 0x00000001;    // 10) enable TIMER3
-	NVIC_EN0_R = NVIC_EN0_R | 1<<23;        // enable interrupt 23 in NVIC
-	refresh = 1; //tell main program to refresh the data on the screen.
-	
-}
-
-void Timer2A_Handler(void){
-  TIMER2_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
-	PF1 ^= 0x02;  // toggles when running in main RED LED
-	
-	
-}
-
-void Timer1A_Handler(void){      //alarm handler!
-  TIMER1_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer1A timeout
-	if(alarm_mode){
-		GPIO_PORTF_DATA_R ^= 0x08; //toggle LED to show that the alarm is supposed to sound, and sound alarm!
-	}
-}
-
-
-void Timer0A_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
-  //PF2 ^= 0x04;                   // profile
-
+	NVIC_EN1_R = 1<<(35-32);        // enable interrupt 23 in NVIC
 }
