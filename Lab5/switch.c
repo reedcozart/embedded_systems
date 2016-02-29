@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
 #include "switch.h"
-
+#include "sound.h"
 
 
 void PortF_Init(void){
@@ -50,12 +50,12 @@ void GPIOPortF_Handler(void){ //Currently this is called when SW1 or SW2 are pre
 
 		if(GPIO_PORTF_RIS_R&0x01){ //SW2 was pressed toggle clock_mode
 			GPIO_PORTF_ICR_R |= 0x01; //acknowledge flag 0
-
+			pauseSong();
 			
 		}
 		if(GPIO_PORTF_RIS_R&0x10){ //SW1 as pressed toggle alarm
 			GPIO_PORTF_ICR_R |= 0x10; //acknowledge flag4
-
+			playSong();
 		}
 		return;
 	
@@ -65,7 +65,7 @@ void GPIOPortE_Handler(void){
 	
 		if(GPIO_PORTE_RIS_R&0x01){ //SWL pressed toggle alarm_set mode
 			GPIO_PORTE_ICR_R |= 0x01; //acknowledge flag0
-
+			stopSong();
 		}
 		if(GPIO_PORTE_RIS_R&0x02){ //SWR pressed toggle time_set mode
 			GPIO_PORTE_ICR_R |= 0x02; //acknowledge flag1

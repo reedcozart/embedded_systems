@@ -34,6 +34,7 @@
 #include "display.h"
 #include "ST7735.h"
 #include "Timer1.h"
+#include "DAC.h"
 
 #define PE2  (*((volatile uint32_t *)0x40024020))
 
@@ -69,6 +70,7 @@ int main(void) {
 	Timer1_N1_Init();
 	Timer2_N2_Init();
 	Timer3_N3_Init();
+	DACInit();
 
 
 	EnableInterrupts();

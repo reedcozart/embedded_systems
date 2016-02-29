@@ -30,7 +30,8 @@ int combinedOutput(void) {
 }
 
 void outputSound(int val) {
-	//write code that outputs to DAC
+	while((SSI0_SR_R&0x00000002)==0){};// wait until room in FIFO
+	SSI0_DR_R = combinedOutput(); // data out
 }
 
 void initSong(void) {
