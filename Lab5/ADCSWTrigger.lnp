@@ -4,7 +4,6 @@
 ".\adctestmain.o"
 ".\pll.o"
 ".\st7735.o"
-".\display.o"
 ".\sound.o"
 ".\switch.o"
 ".\sys_tick.o"

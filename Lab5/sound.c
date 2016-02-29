@@ -2,6 +2,15 @@
 #include <stdint.h>
 #include "sound.h"
 
+song s;
+
+const int wavelen = 32;
+const unsigned short wave[32] = {  
+  2048,2448,2832,3186,3496,3751,3940,4057,4096,4057,3940,
+  3751,3496,3186,2832,2448,2048,1648,1264,910,600,345,
+  156,39,0,39,156,345,600,910,1264,1648
+};
+
 int combinedOutput(void) {
 	int n1val = wave[s.n1_idx];
 	int n2val = wave[s.n2_idx];
