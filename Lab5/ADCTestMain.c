@@ -65,12 +65,12 @@ int main(void) {
 	//Display_Init();						//initialize display	
 	PortF_Init(); //initialize portf with onboard switches
 	PortE_Init(); // initialize port e as breadboard switches.
-
+  initSong();
+	DACInit();
 	Timer0A_SongTimer();
 	Timer1_N1_Init();
 	Timer2_N2_Init();
 	Timer3_N3_Init();
-	DACInit();
 
 
 	EnableInterrupts();

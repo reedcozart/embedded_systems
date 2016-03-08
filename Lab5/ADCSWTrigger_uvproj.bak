@@ -431,11 +431,6 @@
               <FilePath>.\ST7735.c</FilePath>
             </File>
             <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\display.c</FilePath>
-            </File>
-            <File>
               <FileName>sound.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\sound.c</FilePath>
@@ -449,6 +444,11 @@
               <FileName>sys_tick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\sys_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>DAC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\DAC.c</FilePath>
             </File>
           </Files>
         </Group>

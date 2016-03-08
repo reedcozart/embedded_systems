@@ -20,7 +20,7 @@ struct songstruct{
 
 int combinedOutput(void);
 
-void outputSound(int val);
+void outputSound(void);
 
 void initSong(void);
 
