@@ -113,7 +113,7 @@ int main(void){
 				//do conversion here, set it equal to temp.
 				temp = get_temp(ADCvalue);
 				ST7735_SetCursor(3,1); ST7735_OutUDec(ADCvalue);            // 0 to 4095
-				ST7735_SetCursor(3,2);ST7735_DecOut2(temp+100); // 0.01 C 
+				ST7735_SetCursor(3,2);ST7735_DecOut2(temp); // 0.01 C 
 			}
 
 		}
