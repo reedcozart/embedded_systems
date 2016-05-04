@@ -1,0 +1,1 @@
+"./LED.obj" "./UART.obj" "./esp8266.obj" "./http.obj" "./main.obj" "./pll.obj" "./systick.obj" "./tm4c123gh6pm_startup_ccs.obj" "../tm4c123gh6pm.cmd" -l"libc.a" 
